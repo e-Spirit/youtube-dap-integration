@@ -1,8 +1,5 @@
 package com.espirit.se.modules.youtube.integration;
 
-import com.espirit.se.modules.youtube.YoutubeVideos;
-import com.espirit.ps.psci.genericconfiguration.ExecuteAction;
-import com.espirit.ps.psci.genericconfiguration.GenericConfigPanel;
 import de.espirit.common.base.Logging;
 import de.espirit.firstspirit.access.store.Store;
 import de.espirit.firstspirit.access.store.StoreElement;
@@ -13,6 +10,10 @@ import de.espirit.firstspirit.agency.SpecialistsBroker;
 import de.espirit.firstspirit.agency.StoreAgent;
 import de.espirit.firstspirit.module.ProjectEnvironment;
 
+import com.espirit.ps.psci.genericconfiguration.ExecuteAction;
+import com.espirit.ps.psci.genericconfiguration.GenericConfigPanel;
+import com.espirit.se.modules.youtube.YoutubeVideos;
+
 import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +21,12 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipFile;
 
+
 public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectEnvironment> {
-	public final static String CONFIG_API_KEY    = "api_key";
+
+	public final static String CONFIG_API_KEY = "api_key";
 	public final static String CONFIG_CHANNEL_IDS = "channel_ids";
+
 
 	@Override
 	protected void configure() {
@@ -39,11 +43,14 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 
 
 	private static class CheckSettingsAction implements ExecuteAction {
+
 		private final YoutubeIntegrationProjectConfig _config;
+
 
 		CheckSettingsAction(YoutubeIntegrationProjectConfig config) {
 			_config = config;
 		}
+
 
 		@Override
 		public void perform() {
@@ -63,11 +70,14 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 
 
 	private static class ImportSampleSectionAction implements ExecuteAction {
+
 		private final SpecialistsBroker _broker;
+
 
 		ImportSampleSectionAction(SpecialistsBroker broker) {
 			_broker = broker;
 		}
+
 
 		@Override
 		public void perform() {

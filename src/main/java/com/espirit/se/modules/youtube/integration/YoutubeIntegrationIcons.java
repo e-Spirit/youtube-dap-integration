@@ -10,12 +10,15 @@ import javax.swing.ImageIcon;
 
 
 public class YoutubeIntegrationIcons {
+
 	private final static String JC_PATTERN = "/icons/%s.png";
 	private final static String WE_PATTERN = "yt/icons/%s.svg";
+
 
 	private static Icon getIcon(String baseName) {
 		return new ImageIcon(YoutubeIntegrationIcons.class.getResource(String.format(JC_PATTERN, baseName)));
 	}
+
 
 	private static Image<?> getImageIcon(BaseContext context, String baseName) {
 		try {
@@ -31,13 +34,16 @@ public class YoutubeIntegrationIcons {
 		return null;
 	}
 
+
 	public static Image<?> getActive(BaseContext context) {
 		return getImageIcon(context, "youtube_active");
 	}
 
+
 	public static Image<?> getInactive(BaseContext context) {
 		return getImageIcon(context, "youtube_inactive");
 	}
+
 
 	public static Image<?> getVideo(BaseContext context) {
 		return getImageIcon(context, "camera");

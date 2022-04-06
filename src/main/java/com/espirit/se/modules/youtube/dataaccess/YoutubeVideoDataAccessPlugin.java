@@ -1,11 +1,6 @@
 package com.espirit.se.modules.youtube.dataaccess;
 
 
-import com.espirit.moddev.components.annotations.PublicComponent;
-import com.espirit.se.modules.youtube.YoutubeVideo;
-import com.espirit.se.modules.youtube.integration.YoutubeIntegrationIcons;
-import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectApp;
-
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.agency.Image;
 import de.espirit.firstspirit.agency.OperationAgent;
@@ -22,6 +17,10 @@ import de.espirit.firstspirit.ui.operations.RequestOperation;
 import de.espirit.firstspirit.webedit.plugin.report.WebeditExecutableReportItem;
 import de.espirit.firstspirit.webedit.server.ClientScriptOperation;
 
+import com.espirit.moddev.components.annotations.PublicComponent;
+import com.espirit.se.modules.youtube.YoutubeVideo;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationIcons;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectApp;
 
 import javax.swing.Icon;
 import java.awt.Desktop;
@@ -29,48 +28,59 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
 
-@PublicComponent(name="YoutubeVideoDataAccessPlugin")
+
+@PublicComponent(name = "YoutubeVideoDataAccessPlugin")
 public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVideo> {
-    private DataAccessAspectMap _aspects = new DataAccessAspectMap();
+
+	private final DataAccessAspectMap _aspects = new DataAccessAspectMap();
+
 
 	public void setUp(BaseContext context) {
-        if (YoutubeIntegrationProjectApp.isInstalled(context)) {
+		if (YoutubeIntegrationProjectApp.isInstalled(context)) {
 			_aspects.put(Reporting.TYPE, new YouTubeVideoReportingAspect(context));
-            _aspects.put(ReportItemsProviding.TYPE, new YoutubeVideoReportItemsProvidingAspect());
+			_aspects.put(ReportItemsProviding.TYPE, new YoutubeVideoReportItemsProvidingAspect());
 
-        }
-    }
-
-    public void tearDown() {
-    }
-
-    @Override
-    public DataAccessSessionBuilder<YoutubeVideo> createSessionBuilder() {
-        return new YoutubeVideoDataAccessSession.Builder();
-    }
-
-    @Override
-    public <A> A getAspect(DataAccessAspectType<A> aspectType) {
-        return _aspects.get(aspectType);
-    }
-
-    @Override
-    public Image<?> getIcon() {
-        return null;
-    }
-
-    @Override
-    public String getLabel() {
-        return "YouTube";
-    }
+		}
+	}
 
 
-    public static class YouTubeVideoReportingAspect implements Reporting {
+	public void tearDown() {
+	}
+
+
+	@Override
+	public DataAccessSessionBuilder<YoutubeVideo> createSessionBuilder() {
+		return new YoutubeVideoDataAccessSession.Builder();
+	}
+
+
+	@Override
+	public <A> A getAspect(DataAccessAspectType<A> aspectType) {
+		return _aspects.get(aspectType);
+	}
+
+
+	@Override
+	public Image<?> getIcon() {
+		return null;
+	}
+
+
+	@Override
+	public String getLabel() {
+		return "YouTube";
+	}
+
+
+	public static class YouTubeVideoReportingAspect implements Reporting {
+
 		private final BaseContext _context;
+
 
 		private YouTubeVideoReportingAspect(BaseContext context) {
 			_context = context;
 		}
+
 
 		@Override
 		public Image<?> getReportIcon(boolean active) {
@@ -83,51 +93,59 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 	}
 
 
+	public static class YoutubeVideoReportItemsProvidingAspect implements ReportItemsProviding<YoutubeVideo> {
 
-
-    public static class YoutubeVideoReportItemsProvidingAspect implements ReportItemsProviding<YoutubeVideo> {
 		private final YoutubeVideoPreviewItem _clickItem;
 
+
 		private YoutubeVideoReportItemsProvidingAspect() {
-            _clickItem = new YoutubeVideoPreviewItem();
-        }
+			_clickItem = new YoutubeVideoPreviewItem();
+		}
 
-        @Override
-        public ReportItem<YoutubeVideo> getClickItem() {
-            return _clickItem;
-        }
 
-        @Override
-        public Collection<? extends ReportItem<YoutubeVideo>> getItems() {
-            return Collections.emptyList();
-        }
+		@Override
+		public ReportItem<YoutubeVideo> getClickItem() {
+			return _clickItem;
+		}
 
-        private class YoutubeVideoPreviewItem implements JavaClientExecutableReportItem<YoutubeVideo>, WebeditExecutableReportItem<YoutubeVideo> {
 
-			@Override
-            public boolean isVisible(ReportContext<YoutubeVideo> context) {
-                return true;
-            }
+		@Override
+		public Collection<? extends ReportItem<YoutubeVideo>> getItems() {
+			return Collections.emptyList();
+		}
 
-            @Override
-            public boolean isEnabled(ReportContext<YoutubeVideo> context) {
-                return true;
-            }
 
-            @Override
-            public String getLabel(ReportContext<YoutubeVideo> context) {
-                return null;
-            }
+		private class YoutubeVideoPreviewItem implements JavaClientExecutableReportItem<YoutubeVideo>, WebeditExecutableReportItem<YoutubeVideo> {
 
 			@Override
-            public String getIconPath(ReportContext<YoutubeVideo> context) {
-                return null;
-            }
+			public boolean isVisible(ReportContext<YoutubeVideo> context) {
+				return true;
+			}
+
+
+			@Override
+			public boolean isEnabled(ReportContext<YoutubeVideo> context) {
+				return true;
+			}
+
+
+			@Override
+			public String getLabel(ReportContext<YoutubeVideo> context) {
+				return null;
+			}
+
+
+			@Override
+			public String getIconPath(ReportContext<YoutubeVideo> context) {
+				return null;
+			}
+
 
 			@Override
 			public Icon getIcon(ReportContext<YoutubeVideo> context) {
 				return null;
 			}
+
 
 			@Override
 			public void execute(ReportContext<YoutubeVideo> context) {
@@ -150,5 +168,5 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 				}
 			}
 		}
-    }
+	}
 }
