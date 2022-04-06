@@ -1,6 +1,6 @@
-package com.espirit.ps.custom.youtube.integration;
+package com.espirit.se.modules.youtube.integration;
 
-import com.espirit.ps.custom.youtube.YoutubeVideos;
+import com.espirit.se.modules.youtube.YoutubeVideos;
 import com.espirit.ps.psci.genericconfiguration.ExecuteAction;
 import com.espirit.ps.psci.genericconfiguration.GenericConfigPanel;
 import de.espirit.common.base.Logging;

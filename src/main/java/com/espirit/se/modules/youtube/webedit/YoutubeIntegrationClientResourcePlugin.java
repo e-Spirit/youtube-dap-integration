@@ -1,4 +1,4 @@
-package com.espirit.ps.custom.youtube.webedit;
+package com.espirit.se.modules.youtube.webedit;
 
 
 import com.espirit.moddev.components.annotations.PublicComponent;

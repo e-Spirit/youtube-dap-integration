@@ -1,10 +1,10 @@
-package com.espirit.ps.custom.youtube.dataaccess;
+package com.espirit.se.modules.youtube.dataaccess;
 
 
-import com.espirit.ps.custom.youtube.YoutubeVideo;
-import com.espirit.ps.custom.youtube.YoutubeVideos;
+import com.espirit.se.modules.youtube.YoutubeVideo;
+import com.espirit.se.modules.youtube.YoutubeVideos;
 import com.google.api.services.youtube.model.Channel;
-import de.espirit.common.base.Logging;
+
 import de.espirit.common.tools.Strings;
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.client.plugin.dataaccess.DataStream;
@@ -19,7 +19,6 @@ import de.espirit.firstspirit.client.plugin.report.ParameterText;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 

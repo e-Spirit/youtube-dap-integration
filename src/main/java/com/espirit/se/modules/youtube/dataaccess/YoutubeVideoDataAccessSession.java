@@ -1,11 +1,10 @@
-package com.espirit.ps.custom.youtube.dataaccess;
+package com.espirit.se.modules.youtube.dataaccess;
 
 
-import com.espirit.ps.custom.youtube.YoutubeVideo;
-import com.espirit.ps.custom.youtube.integration.YoutubeIntegrationIcons;
-import com.espirit.ps.custom.youtube.YoutubeVideos;
-import de.espirit.common.base.Logging;
-import de.espirit.common.tools.Streams;
+import com.espirit.se.modules.youtube.YoutubeVideo;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationIcons;
+import com.espirit.se.modules.youtube.YoutubeVideos;
+
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.access.Language;
 import de.espirit.firstspirit.access.editor.ValueIndexer;
@@ -28,8 +27,6 @@ import de.espirit.firstspirit.json.JsonObject;
 import de.espirit.firstspirit.json.JsonPair;
 import de.espirit.firstspirit.json.values.JsonStringValue;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;

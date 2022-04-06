@@ -1,10 +1,11 @@
-package com.espirit.ps.custom.youtube.dataaccess;
+package com.espirit.se.modules.youtube.dataaccess;
 
 
 import com.espirit.moddev.components.annotations.PublicComponent;
-import com.espirit.ps.custom.youtube.YoutubeVideo;
-import com.espirit.ps.custom.youtube.integration.YoutubeIntegrationIcons;
-import com.espirit.ps.custom.youtube.integration.YoutubeIntegrationProjectApp;
+import com.espirit.se.modules.youtube.YoutubeVideo;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationIcons;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectApp;
+
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.agency.Image;
 import de.espirit.firstspirit.agency.OperationAgent;

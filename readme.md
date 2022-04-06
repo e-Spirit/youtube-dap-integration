@@ -79,7 +79,7 @@ public interface YoutubeVideo {
 ```xml
 <FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideo" useLanguages="no">
 	<DROPTYPES>
-		<MIME classname="com.espirit.ps.custom.youtube.YoutubeVideo"/>
+		<MIME classname="YoutubeVideo"/>
 	</DROPTYPES>
 	<LANGINFOS>
 		<LANGINFO lang="*" label="Drop Video here"/>

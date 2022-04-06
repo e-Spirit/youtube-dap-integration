@@ -1,8 +1,9 @@
-package com.espirit.ps.custom.youtube.executable;
+package com.espirit.se.modules.youtube.executable;
 
 
 import com.espirit.moddev.components.annotations.PublicComponent;
-import com.espirit.ps.custom.youtube.YoutubeVideo;
+import com.espirit.se.modules.youtube.YoutubeVideo;
+
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.access.script.Executable;
 import de.espirit.firstspirit.agency.TransferAgent;

@@ -1,4 +1,4 @@
-package com.espirit.ps.custom.youtube.integration;
+package com.espirit.se.modules.youtube.integration;
 
 
 import com.espirit.moddev.components.annotations.ProjectAppComponent;

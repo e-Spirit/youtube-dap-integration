@@ -1,4 +1,4 @@
-package com.espirit.ps.custom.youtube.integration;
+package com.espirit.se.modules.youtube.integration;
 
 
 import de.espirit.firstspirit.access.BaseContext;

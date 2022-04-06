@@ -1,4 +1,4 @@
-package com.espirit.ps.custom.youtube;
+package com.espirit.se.modules.youtube;
 
 
 public class YoutubeVideo {

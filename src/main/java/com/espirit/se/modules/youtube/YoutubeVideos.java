@@ -1,8 +1,8 @@
-package com.espirit.ps.custom.youtube;
+package com.espirit.se.modules.youtube;
 
 
-import com.espirit.ps.custom.youtube.integration.YoutubeIntegrationProjectApp;
-import com.espirit.ps.custom.youtube.integration.YoutubeIntegrationProjectConfig;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectApp;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectConfig;
 import com.espirit.ps.psci.genericconfiguration.Values;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -19,7 +19,6 @@ import com.google.api.services.youtube.model.VideoSnippet;
 import de.espirit.common.base.Logging;
 import de.espirit.common.tools.Strings;
 import de.espirit.firstspirit.agency.SpecialistsBroker;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
