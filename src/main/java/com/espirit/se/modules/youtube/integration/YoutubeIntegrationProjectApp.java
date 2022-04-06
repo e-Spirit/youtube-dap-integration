@@ -9,8 +9,8 @@ import de.espirit.firstspirit.module.descriptor.ProjectAppDescriptor;
 import com.espirit.moddev.components.annotations.ProjectAppComponent;
 import com.espirit.ps.psci.genericconfiguration.Values;
 
-
-@ProjectAppComponent(name = "YouTube-DAP-Integration", configurable = YoutubeIntegrationProjectConfig.class)
+// TODO: Naming, find better description
+@ProjectAppComponent(name = "YouTube-DAP-Integration")
 public class YoutubeIntegrationProjectApp implements ProjectApp {
 
 	public static boolean isInstalled(SpecialistsBroker broker) {

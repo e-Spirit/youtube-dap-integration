@@ -28,8 +28,10 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
 
-
-@PublicComponent(name = "YoutubeVideoDataAccessPlugin")
+// TODO: Add better description
+@PublicComponent(name = "YoutubeVideoDataAccessPlugin",
+		displayName = "Youtube Video Data Access Plugin",
+		description = "Youtube Video Data Access Plugin")
 public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVideo> {
 
 	private final DataAccessAspectMap _aspects = new DataAccessAspectMap();
@@ -39,7 +41,6 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 		if (YoutubeIntegrationProjectApp.isInstalled(context)) {
 			_aspects.put(Reporting.TYPE, new YouTubeVideoReportingAspect(context));
 			_aspects.put(ReportItemsProviding.TYPE, new YoutubeVideoReportItemsProvidingAspect());
-
 		}
 	}
 

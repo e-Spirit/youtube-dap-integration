@@ -9,8 +9,10 @@ import com.espirit.moddev.components.annotations.PublicComponent;
 import java.util.Collections;
 import java.util.List;
 
-
-@PublicComponent(name = "YoutubeClientResourcePlugin")
+// TODO: Naming, find better description
+@PublicComponent(name = "YoutubeClientResourcePlugin",
+		displayName = "Youtube Client Resource Plugin",
+		description = "Provides the required css and javascript files.")
 public class YoutubeIntegrationClientResourcePlugin implements ClientResourcePlugin {
 
 	@Override

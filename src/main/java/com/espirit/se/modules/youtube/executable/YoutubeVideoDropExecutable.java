@@ -15,8 +15,10 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
-
-@PublicComponent(name = "DropYoutubeVideo")
+// TODO: Naming, find better description
+@PublicComponent(name = "DropYoutubeVideo",
+		displayName = "Youtube Drop Video Executable",
+		description = "Executable that can be used in FS_BUTTONS as onDrop action.")
 public class YoutubeVideoDropExecutable implements Executable {
 
 	private final static String PARAM_ID = "id";
