@@ -40,14 +40,13 @@ public class YoutubeVideos {
 	private static int apiCounter = 0;
 	private final YouTube _youtube;
 	private final String _apiKey;
-	private final List<Channel> _channels = new ArrayList<Channel>();
+	private final List<Channel> _channels = new ArrayList();
 
 
 	private YoutubeVideos(String apiKey, @Nullable String channelIds) throws Exception {
 
 		apiCounter = 0;
 		_apiKey = apiKey;
-		//_channelIds = channelIds.split(",");
 		_youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
 		}).setApplicationName(APP_NAME).build();
 
@@ -166,14 +165,8 @@ public class YoutubeVideos {
 		return videos != null ? videos.get(videoId) : null;
 	}
 
-	/*public static Iterator<YoutubeVideo> find(SpecialistsBroker broker, @Nullable String query, @Nullable String channel) {
-		YoutubeVideos videos = createInstance(broker);
-		return videos != null ? videos.find(query, channel) : Collections.emptyIterator();
-	}*/
-
 
 	public Iterator<YoutubeVideo> find(@Nullable String query, @Nullable String channel) {
-		//if (query != null || channel != null) {
 		try {
 
 			if (query == null) {
@@ -187,7 +180,7 @@ public class YoutubeVideos {
 				}
 			}
 
-			List<YoutubeVideo> results = new ArrayList<YoutubeVideo>();
+			List<YoutubeVideo> results = new ArrayList();
 
 			if (channelIterator == null) {
 				YouTube.Search.List ysl;
@@ -238,7 +231,6 @@ public class YoutubeVideos {
 		} catch (Exception e) {
 			Logging.logError(e.getMessage(), e, getClass());
 		}
-		//}
 		return Collections.emptyIterator();
 	}
 
@@ -283,6 +275,7 @@ public class YoutubeVideos {
 		List<YoutubeVideo> videos = get(Collections.singletonList(videoId));
 		return videos.isEmpty() ? null : videos.get(0);
 	}
+
 
 	private static class SearchResults implements Iterator<YoutubeVideo> {
 

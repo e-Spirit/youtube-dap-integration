@@ -24,8 +24,8 @@ import java.util.zip.ZipFile;
 
 public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectEnvironment> {
 
-	public final static String CONFIG_API_KEY = "api_key";
-	public final static String CONFIG_CHANNEL_IDS = "channel_ids";
+	public static final String CONFIG_API_KEY = "api_key";
+	public static final String CONFIG_CHANNEL_IDS = "channel_ids";
 
 
 	@Override

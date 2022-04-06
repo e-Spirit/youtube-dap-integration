@@ -54,7 +54,7 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		_aspects = new SessionAspectMap();
 		_aspects.put(TransferHandling.TYPE, new YoutubeVideoTransferHandlingAspect(_context));
 		_aspects.put(TransferSupplying.TYPE, new YoutubeVideoTransferSupplyingAspect(_context));
-		_aspects.put(DataTemplating.TYPE, new YoutubeVideoDataTemplatingAspect(_context));
+		_aspects.put(DataTemplating.TYPE, new YoutubeVideoDataTemplatingAspect());
 		_aspects.put(ValueIndexing.TYPE, new YoutubeVideoValueIndexingAspect());
 		_aspects.put(JsonSupporting.TYPE, new YoutubeJsonReportingAspect());
 		_aspects.put(UrlSupporting.TYPE, new YoutubeUrlSupportingAspect());
@@ -95,6 +95,7 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 	public String getIdentifier(YoutubeVideo video) throws NoSuchElementException {
 		return video.getId();
 	}
+
 
 	public static class YoutubeUrlSupportingAspect implements UrlSupporting<YoutubeVideo> {
 
@@ -279,16 +280,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 
 	public static class YoutubeVideoDataTemplatingAspect implements DataTemplating<YoutubeVideo> {
 
-		private final BaseContext _context;
-
-		private String template;
-
-
-		private YoutubeVideoDataTemplatingAspect(BaseContext context) {
-			_context = context;
-		}
-
-
 		@Override
 		public String getTemplate(YoutubeVideo video, Language language) {
 			return "<div style=\"width: 450px;\"><div style=\"font-size: 1.5em; line-height: 1.3;\">${title}</div><img src=\"${posterUrl}\" style=\"display: block; width: 100%; margin: 10px 0\"><div style=\"overflow: hidden; max-height: 7em; white-space: pre-wrap; word-break: break-word;\">${description}</div></div>";
@@ -297,8 +288,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 
 		@Override
 		public void registerParameters(ParameterSet parameters, YoutubeVideo video, Language language) {
-			ImageAgent imageAgent = _context.requireSpecialist(ImageAgent.TYPE);
-			//parameters.addImage("poster", imageAgent.getImageFromUrl(video.getPosterUrl()), "");
 			parameters.addHtml("posterUrl", video.getPosterUrl());
 			parameters.addHtml("title", video.getTitle());
 			parameters.addHtml("description", video.getDescription());

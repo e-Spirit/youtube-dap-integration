@@ -8,14 +8,10 @@ import com.espirit.moddev.components.annotations.WebAppComponent;
 import com.espirit.moddev.components.annotations.WebResource;
 
 
-@WebAppComponent(name = "YouTube-DAP-Integration WebApp", webXml = "web/web.xml",
-		webResources = {
-				@WebResource(name = "webfiles", version = "", path = "web/", targetPath = "/yt"),
-				@WebResource(name = "icons", version = "", path = "icons/", targetPath = "/yt/icons"),
-
-
-		}
-)
+@WebAppComponent(name = "YouTube-DAP-Integration WebApp",
+		webXml = "web/web.xml",
+		webResources = {@WebResource(name = "webfiles", version = "", path = "web/", targetPath = "/yt"),
+						@WebResource(name = "icons", version = "", path = "icons/", targetPath = "/yt/icons")})
 public class YoutubeIntegrationContentCreator implements WebApp {
 
 	@Override

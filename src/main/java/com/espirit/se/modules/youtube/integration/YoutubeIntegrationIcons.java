@@ -11,8 +11,13 @@ import javax.swing.ImageIcon;
 
 public class YoutubeIntegrationIcons {
 
-	private final static String JC_PATTERN = "/icons/%s.png";
-	private final static String WE_PATTERN = "yt/icons/%s.svg";
+	private static final String JC_PATTERN = "/icons/%s.png";
+	private static final String WE_PATTERN = "yt/icons/%s.svg";
+
+
+	private YoutubeIntegrationIcons() {
+		throw new IllegalStateException("Utility class");
+	}
 
 
 	private static Icon getIcon(String baseName) {

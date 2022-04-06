@@ -25,13 +25,11 @@ import java.util.List;
 
 public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
+	private final YoutubeVideos _youtubeVideos;
 	private int _countAll;
 	private int _total;
 	private Iterator<YoutubeVideo> _data = null;
 	private Iterator<Channel> _channels = null;
-	private final YoutubeVideos _youtubeVideos;
-
-	//private static final Class<?> LOGGER = YoutubeVideoDataStream.class;
 
 
 	private YoutubeVideoDataStream(BaseContext context, YoutubeVideos youtubeVideos, @Nullable String query, @Nullable String channel) {
