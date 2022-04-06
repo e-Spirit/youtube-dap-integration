@@ -45,6 +45,7 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 
 
 	public void tearDown() {
+		// Nothing needs to be done here
 	}
 
 

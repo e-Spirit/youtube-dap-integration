@@ -25,20 +25,24 @@ public class YoutubeIntegrationProjectApp implements ProjectApp {
 
 	@Override
 	public void init(ProjectAppDescriptor descriptor, ProjectEnvironment environment) {
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void installed() {
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void uninstalling() {
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void updated(String oldVersionString) {
+		// Nothing needs to be done here
 	}
 }

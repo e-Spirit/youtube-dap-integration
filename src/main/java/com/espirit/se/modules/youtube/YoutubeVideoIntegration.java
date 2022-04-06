@@ -13,24 +13,24 @@ public class YoutubeVideoIntegration implements Module {
 
 	@Override
 	public void init(ModuleDescriptor moduleDescriptor, ServerEnvironment serverEnvironment) {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void installed() {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void uninstalling() {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void updated(String s) {
-
+		// Nothing needs to be done here
 	}
 }

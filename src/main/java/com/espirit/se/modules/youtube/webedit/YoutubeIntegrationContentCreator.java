@@ -20,30 +20,30 @@ public class YoutubeIntegrationContentCreator implements WebApp {
 
 	@Override
 	public void createWar() {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void init(WebAppDescriptor webAppDescriptor, WebEnvironment webEnvironment) {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void installed() {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void uninstalling() {
-
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void updated(String s) {
-
+		// Nothing needs to be done here
 	}
 }

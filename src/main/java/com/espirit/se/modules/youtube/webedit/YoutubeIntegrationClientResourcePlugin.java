@@ -15,11 +15,13 @@ public class YoutubeIntegrationClientResourcePlugin implements ClientResourcePlu
 
 	@Override
 	public void setUp(BaseContext context) {
+		// Nothing needs to be done here
 	}
 
 
 	@Override
 	public void tearDown() {
+		// Nothing needs to be done here
 	}
 
 
