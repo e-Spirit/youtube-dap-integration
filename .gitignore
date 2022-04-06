@@ -1,0 +1,6 @@
+YouTube-DAP-Integration.iml
+.idea
+bin
+target
+build/
+.gradle/
