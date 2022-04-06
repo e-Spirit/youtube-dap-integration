@@ -8,91 +8,44 @@
 
 buildscript {
     ext {
-        fsRuntimeVersion = '5.2.201107'
-        fsIsolationCheckVersion = '5.2.210309' // update regularly to test against newest FirstSpirit release
+        fsRuntimeVersion = '5.2.220409'
     }
 }
 
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'de.espirit.firstspirit-module' version '1.0.2'
-    id 'de.espirit.firstspirit' version '1.0.10'
+    id 'de.espirit.firstspirit-module' version '3.0.1'
     id 'net.researchgate.release' version '2.8.1'
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    if (JavaVersion.current().isJava9Compatible()) {
-        //options.release.set(8)
-    } else {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+    options.release.set(11)
 }
 
 group = project.property('groupId')
 
 repositories {
     maven {
-        url = 'https://artifactory.e-spirit.de/artifactory/repo/'
+        url = 'https://artifactory.e-spirit.hosting/artifactory/repo/'
         credentials {
-            username = artifactory_username
-            password = artifactory_password
+            username = artifactory_hosting_username
+            password = artifactory_hosting_password
         }
     }
-}
-
-configurations {
-    fsLicense
 }
 
 dependencies {
-	fsModuleCompile group: 'com.espirit.ps.psci.module', name: 'generic-configuration', version: '2.8.0'
+    // FirstSpirit API
+    fsProvidedCompile group: 'de.espirit.firstspirit', name: 'fs-isolated-runtime', version: "${fsRuntimeVersion}"
+    // GenericConfig - a utility lib to create <configurable> dialogs
+    // https://community.crownpeak.com/t5/Tutorials-and-How-Tos/GenericConfig-a-utility-lib-to-create-lt-configurable-gt-dialogs/ba-p/50669
+    fsModuleCompile group: 'com.espirit.ps.psci.module', name: 'generic-configuration', version: '2.8.0'
     fsWebCompile group: 'com.espirit.ps.psci.module', name: 'generic-configuration', version: '2.8.0'
+    // YouTube Data API
     fsModuleCompile group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev222-1.25.0'
     fsWebCompile group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev222-1.25.0'
-    fsProvidedCompile group: 'de.espirit.firstspirit', name: 'fs-isolated-runtime', version: "${fsRuntimeVersion}"
-    fsLicense group: 'de.espirit.firstspirit', name: 'fs-license', version: '5-SNAPSHOT', ext: 'conf'
-}
-
-/*
- * FirstSpirit Plugin (Integration Tests) configuration
- */
-
-def serverHttpPort = 0
-def serverSocketPort = 0
-
-new ServerSocket(0).withCloseable {
-    port1 -> serverHttpPort = port1.getLocalPort()
-        new ServerSocket(0).withCloseable {
-            port2 -> serverSocketPort = port2.getLocalPort()
-        }
-}
-
-firstSpirit {
-    version = "${fsRuntimeVersion}"
-}
-
-fsStartServer {
-    serverConfiguration {
-        httpPort = serverHttpPort
-        socketPort = serverSocketPort
-        licenseFile = configurations.fsLicense.resolve().first().absolutePath
-    }
-}
-
-fsInstallModule {
-    fsm = "${assembleFSM.destinationDirectory.file(assembleFSM.archiveFileName).get().asFile}"
-
-    dependsOn assembleFSM, fsStartServer
-}
-
-task integrationTest() {
-    group = 'verification'
-
-    dependsOn fsStartServer, fsInstallModule
-    finalizedBy fsStopServer
 }
 
 /*
@@ -104,10 +57,6 @@ firstSpiritModule {
     displayName = project.property('firstSpiritModule.displayName')
     description = project.property('firstSpiritModule.description')
     vendor = project.property('firstSpiritModule.vendor')
-
-    isolationDetectorUrl = 'https://fsdev.e-spirit.de/FsmDependencyDetector/'
-    firstSpiritVersion = "${fsIsolationCheckVersion}"
-    complianceLevel = 'MINIMAL'
 }
 
 /*
@@ -118,10 +67,10 @@ publishing {
     repositories {
         maven {
             credentials {
-                username = artifactory_username
-                password = artifactory_password
+                username = artifactory_hosting_username
+                password = artifactory_hosting_password
             }
-            url "https://artifactory.e-spirit.de/artifactory/${version.endsWith("SNAPSHOT") ? project.property('publishing.snapshotRepository') : project.property('publishing.releaseRepository') }"
+            url "https://artifactory.e-spirit.hosting/artifactory/${version.endsWith("SNAPSHOT") ? project.property('publishing.snapshotRepository') : project.property('publishing.releaseRepository') }"
         }
     }
     publications {
@@ -140,7 +89,10 @@ release {
     ignoredSnapshotDependencies = ['de.espirit.firstspirit:fs-license']
 }
 
-// publish artifacts after release
+/*
+ * publish artifacts after release
+ */
+
 allprojects { p ->
     afterEvaluate {
         rootProject.afterReleaseBuild.dependsOn p.tasks.matching { it.name == 'publish' }
