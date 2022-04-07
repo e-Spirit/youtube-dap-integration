@@ -1,6 +1,5 @@
 package com.espirit.se.modules.youtube.integration;
 
-
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.agency.Image;
 import de.espirit.firstspirit.agency.ImageAgent;
@@ -8,10 +7,20 @@ import de.espirit.firstspirit.agency.ImageAgent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-
+/**
+ * The type Youtube integration icons.
+ * Utility class that provides icons for buttons. Depending on the environment, SiteArchitect or ContentCreator,
+ * matching formats are returned.
+ */
 public class YoutubeIntegrationIcons {
 
+	/**
+	 * The constant that contains the SiteArchitect pattern path to the icons.
+	 */
 	private static final String JC_PATTERN = "/icons/%s.png";
+	/**
+	 * The constant that contains the ContentCreator pattern path to the icons.
+	 */
 	private static final String WE_PATTERN = "yt/icons/%s.svg";
 
 
@@ -40,16 +49,34 @@ public class YoutubeIntegrationIcons {
 	}
 
 
+	/**
+	 * Gets an icon for an active button.
+	 *
+	 * @param context the FirstSpirit context
+	 * @return the active Image
+	 */
 	public static Image<?> getActive(BaseContext context) {
 		return getImageIcon(context, "youtube_active");
 	}
 
 
+	/**
+	 * Gets an icon for an inactive button
+	 *
+	 * @param context the FirstSpirit context
+	 * @return the inactive Image
+	 */
 	public static Image<?> getInactive(BaseContext context) {
 		return getImageIcon(context, "youtube_inactive");
 	}
 
 
+	/**
+	 * Gets video icon.
+	 *
+	 * @param context the FirstSpirit context
+	 * @return the video Image
+	 */
 	public static Image<?> getVideo(BaseContext context) {
 		return getImageIcon(context, "camera");
 	}

@@ -1,6 +1,5 @@
 package com.espirit.se.modules.youtube.executable;
 
-
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.access.script.Executable;
 import de.espirit.firstspirit.agency.TransferAgent;
@@ -15,16 +14,46 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The FirstSpirit Youtube video drop executable.
+ * Executable that can be used in FS_BUTTONS as onDrop action.
+ * <pre>{@code
+ * 	<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideo" useLanguages="no">
+ * 		<DROPTYPES>
+ * 			<MIME classname="YoutubeVideo"/>
+ * 		</DROPTYPES>
+ * 		<LANGINFOS>
+ * 			<LANGINFO lang="*" label="Drop Video here"/>
+ * 		</LANGINFOS>
+ * 		<PARAMS>
+ * 			<PARAM name="id">#field.st_videoId</PARAM>
+ * 			<PARAM name="title">#field.st_title</PARAM>
+ * 			<PARAM name="description">#field.st_description</PARAM>
+ * 		</PARAMS>
+ * 	</FS_BUTTON>
+ * }</pre>
+ */
 // TODO: Naming, find better description
 @PublicComponent(name = "DropYoutubeVideo",
 		displayName = "Youtube Drop Video Executable",
 		description = "Executable that can be used in FS_BUTTONS as onDrop action.")
 public class YoutubeVideoDropExecutable implements Executable {
 
+	/**
+	 * The constant that contains ID of the parameter for the video id form field.
+	 * e.g.: <pre>{@code <PARAM name="id">#field.st_videoId</PARAM>}</pre>
+	 */
 	private final static String PARAM_ID = "id";
+	/**
+	 * The constant that contains ID of the parameter for the video title form field.
+	 * e.g.: <pre>{@code <PARAM name="title">#field.st_title</PARAM>}</pre>
+	 */
 	private final static String PARAM_TITLE = "title";
+	/**
+	 * The constant that contains ID of the parameter for the video description form field.
+	 * e.g.: <pre>{@code <PARAM name="description">#field.st_description</PARAM>}</pre>
+	 */
 	private final static String PARAM_DESCRIPTION = "description";
-
 
 	@Override
 	public Object execute(final Map<String, Object> parameter) {
@@ -42,7 +71,12 @@ public class YoutubeVideoDropExecutable implements Executable {
 		return null;
 	}
 
-
+	/**
+	 * Transfers the information from the dropped object to the form.
+	 *
+	 * @param video
+	 * @param paramMap
+	 */
 	private void processVideo(final YoutubeVideo video, final Map<String, Object> paramMap) {
 		if (video != null) {
 			if (paramMap.containsKey(PARAM_ID)) {
@@ -56,7 +90,6 @@ public class YoutubeVideoDropExecutable implements Executable {
 			}
 		}
 	}
-
 
 	@Override
 	public Object execute(final Map<String, Object> parameter, final Writer out, final Writer err) {

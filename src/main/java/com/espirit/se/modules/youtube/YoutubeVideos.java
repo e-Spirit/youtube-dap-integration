@@ -47,8 +47,7 @@ public class YoutubeVideos {
 
 		apiCounter = 0;
 		_apiKey = apiKey;
-		_youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
-		}).setApplicationName(APP_NAME).build();
+		_youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {}).setApplicationName(APP_NAME).build();
 
 		if (channelIds != null && !channelIds.isEmpty()) {
 			try {

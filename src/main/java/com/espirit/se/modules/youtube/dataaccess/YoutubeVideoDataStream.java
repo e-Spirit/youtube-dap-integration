@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+/**
+ * The FirstSpirit Youtube video data stream.
+ */
 public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
 	private final YoutubeVideos _youtubeVideos;
@@ -87,7 +89,9 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		return _data != null && _data.hasNext();
 	}
 
-
+	/**
+	 * The FirstSpirit Youtube video data stream builder.
+	 */
 	public static class Builder implements DataStreamBuilder<YoutubeVideo> {
 
 		private final BaseContext _context;
@@ -95,7 +99,11 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		private final StreamBuilderAspectMap _aspects;
 		private final YoutubeVideos _youtubeVideos;
 
-
+		/**
+		 * Instantiates a new Builder.
+		 *
+		 * @param context the context
+		 */
 		Builder(BaseContext context) {
 
 			List<ParameterSelect.SelectItem> selectItems = new ArrayList<>();
@@ -139,7 +147,9 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		}
 	}
 
-
+	/**
+	 * Aspect to provide filters for a data stream.
+	 */
 	public static class FilterableAspect implements Filterable {
 
 		private ParameterText _query = null;
@@ -173,14 +183,22 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 			_filter = filter;
 		}
 
-
+		/**
+		 * Gets the query string.
+		 *
+		 * @return the query string
+		 */
 		@Nullable
 		String getQuery() {
 			String query = _filter.get(_query);
 			return !Strings.isEmpty(query) ? query : null;
 		}
 
-
+		/**
+		 * Gets the selected channel.
+		 *
+		 * @return the channel id
+		 */
 		@Nullable
 		String getChannel() {
 			String channel = null;

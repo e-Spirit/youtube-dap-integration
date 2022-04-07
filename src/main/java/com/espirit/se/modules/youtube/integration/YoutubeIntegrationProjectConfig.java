@@ -22,9 +22,18 @@ import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipFile;
 
 
+/**
+ * The FirstSpirit Youtube integration project config.
+ */
 public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectEnvironment> {
 
+	/**
+	 * The constant that contains the key used to store and retrieve the Youtube API key.
+	 */
 	public static final String CONFIG_API_KEY = "api_key";
+	/**
+	 * The constant that contains the key used to store and retrieve the youtube Channel IDs.
+	 */
 	public static final String CONFIG_CHANNEL_IDS = "channel_ids";
 
 
@@ -42,16 +51,27 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 	}
 
 
+	/**
+	 * Action to test if the current configuration is valid.
+	 */
 	private static class CheckSettingsAction implements ExecuteAction {
 
 		private final YoutubeIntegrationProjectConfig _config;
 
 
+		/**
+		 * Instantiates a new Check settings action.
+		 *
+		 * @param config the config
+		 */
 		CheckSettingsAction(YoutubeIntegrationProjectConfig config) {
 			_config = config;
 		}
 
 
+		/**
+		 * Checks if the current configuration is valid
+		 */
 		@Override
 		public void perform() {
 			String apiKey = _config.getFormValue(CONFIG_API_KEY);
@@ -68,17 +88,28 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 		}
 	}
 
-
+	/**
+	 * Action to import the sample section template in the current project.
+	 * See fsm-resources/files/export_youtube_video.zip
+	 */
 	private static class ImportSampleSectionAction implements ExecuteAction {
 
 		private final SpecialistsBroker _broker;
 
 
+		/**
+		 * Instantiates a new Import sample section action.
+		 *
+		 * @param broker the broker
+		 */
 		ImportSampleSectionAction(SpecialistsBroker broker) {
 			_broker = broker;
 		}
 
 
+		/**
+		 * Imports the section template.
+		 */
 		@Override
 		public void perform() {
 			ZipFile zipFile = null;

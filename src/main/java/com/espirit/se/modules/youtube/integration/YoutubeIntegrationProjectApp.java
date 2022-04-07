@@ -9,10 +9,22 @@ import de.espirit.firstspirit.module.descriptor.ProjectAppDescriptor;
 import com.espirit.moddev.components.annotations.ProjectAppComponent;
 import com.espirit.ps.psci.genericconfiguration.Values;
 
+
+/**
+ * The FirstSpirit Youtube integration project app.
+ * Can be added to a FirstSpirit project to enable and configure Youtube integration.
+ */
 // TODO: Naming, find better description
 @ProjectAppComponent(name = "YouTube-DAP-Integration")
 public class YoutubeIntegrationProjectApp implements ProjectApp {
 
+	/**
+	 * Checks if this project app is installed in the project associated with
+	 * the specified context and whether an API key is set.
+	 *
+	 * @param broker the project related broker
+	 * @return the true if the project app is installed and an API key is set, false otherwise
+	 */
 	public static boolean isInstalled(SpecialistsBroker broker) {
 		if (YoutubeIntegrationProjectConfig.isInstalled(YoutubeIntegrationProjectApp.class, broker)) {
 			Values values = YoutubeIntegrationProjectConfig.values(broker, YoutubeIntegrationProjectApp.class);

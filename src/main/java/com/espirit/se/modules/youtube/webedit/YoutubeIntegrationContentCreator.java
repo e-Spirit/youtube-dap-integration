@@ -7,6 +7,11 @@ import de.espirit.firstspirit.module.descriptor.WebAppDescriptor;
 import com.espirit.moddev.components.annotations.WebAppComponent;
 import com.espirit.moddev.components.annotations.WebResource;
 
+
+/**
+ * The FirstSpirit Youtube integration content creator WebApp.
+ * Is needed to provide a WebApp with all needed resources.
+ */
 // TODO: Naming, find better description
 @WebAppComponent(name = "YouTube-DAP-Integration WebApp",
 		displayName = "YouTube-DAP-Integration WebApp",
