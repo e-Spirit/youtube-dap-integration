@@ -17,18 +17,15 @@ public class YoutubeVideoIntegration implements Module {
 		// Nothing needs to be done here
 	}
 
-
 	@Override
 	public void installed() {
 		// Nothing needs to be done here
 	}
 
-
 	@Override
 	public void uninstalling() {
 		// Nothing needs to be done here
 	}
-
 
 	@Override
 	public void updated(String s) {

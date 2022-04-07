@@ -1,6 +1,5 @@
 package com.espirit.se.modules.youtube.integration;
 
-
 import de.espirit.firstspirit.agency.SpecialistsBroker;
 import de.espirit.firstspirit.module.ProjectApp;
 import de.espirit.firstspirit.module.ProjectEnvironment;
@@ -8,7 +7,6 @@ import de.espirit.firstspirit.module.descriptor.ProjectAppDescriptor;
 
 import com.espirit.moddev.components.annotations.ProjectAppComponent;
 import com.espirit.ps.psci.genericconfiguration.Values;
-
 
 /**
  * The FirstSpirit Youtube integration project app.
@@ -34,24 +32,20 @@ public class YoutubeIntegrationProjectApp implements ProjectApp {
 		return false;
 	}
 
-
 	@Override
 	public void init(ProjectAppDescriptor descriptor, ProjectEnvironment environment) {
 		// Nothing needs to be done here
 	}
-
 
 	@Override
 	public void installed() {
 		// Nothing needs to be done here
 	}
 
-
 	@Override
 	public void uninstalling() {
 		// Nothing needs to be done here
 	}
-
 
 	@Override
 	public void updated(String oldVersionString) {

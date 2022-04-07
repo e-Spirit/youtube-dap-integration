@@ -1,6 +1,5 @@
 package com.espirit.se.modules.youtube.dataaccess;
 
-
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.access.Language;
 import de.espirit.firstspirit.access.editor.ValueIndexer;
@@ -41,12 +40,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-
 public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeVideo> {
 
 	private final BaseContext _context;
 	private final SessionAspectMap _aspects;
-
 
 	private YoutubeVideoDataAccessSession(BaseContext context) {
 		_context = context;
@@ -60,42 +57,35 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		_aspects.put(UrlSupporting.TYPE, new YoutubeUrlSupportingAspect());
 	}
 
-
 	@Override
 	public DataSnippetProvider<YoutubeVideo> createDataSnippetProvider() {
 		return new YoutubeVideoDataSnippetProvider(_context);
 	}
-
 
 	@Override
 	public DataStreamBuilder<YoutubeVideo> createDataStreamBuilder() {
 		return new YoutubeVideoDataStream.Builder(_context);
 	}
 
-
 	@Override
 	public <A> A getAspect(SessionAspectType<A> aspectType) {
 		return _aspects.get(aspectType);
 	}
-
 
 	@Override
 	public YoutubeVideo getData(String identifier) throws NoSuchElementException {
 		return YoutubeVideos.get(_context, identifier);
 	}
 
-
 	@Override
 	public List<YoutubeVideo> getData(Collection<String> identifierList) {
 		return YoutubeVideos.get(_context, identifierList);
 	}
 
-
 	@Override
 	public String getIdentifier(YoutubeVideo video) throws NoSuchElementException {
 		return video.getId();
 	}
-
 
 	public static class YoutubeUrlSupportingAspect implements UrlSupporting<YoutubeVideo> {
 
@@ -120,7 +110,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 			return jsonResult;
 		}
 
-
 		@Override
 		public Class<YoutubeVideo> getSupportedClass() {
 			return YoutubeVideo.class;
@@ -131,12 +120,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 
 		private final SessionBuilderAspectMap _aspects = new SessionBuilderAspectMap();
 
-
 		@Override
 		public DataAccessSession<YoutubeVideo> createSession(BaseContext context) {
 			return new YoutubeVideoDataAccessSession(context);
 		}
-
 
 		@Override
 		public <A> A getAspect(SessionBuilderAspectType<A> aspectType) {
@@ -144,12 +131,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
-
 	public static class YoutubeVideoDataSnippetProvider implements DataSnippetProvider<YoutubeVideo> {
 
 		private final BaseContext _context;
 		private final Image<?> _icon;
-
 
 		private YoutubeVideoDataSnippetProvider(BaseContext context) {
 			_context = context;
@@ -160,12 +145,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 			}
 		}
 
-
 		@Override
 		public Image<?> getIcon(YoutubeVideo video) {
 			return _icon;
 		}
-
 
 		@Override
 		public Image<?> getThumbnail(YoutubeVideo video, Language language) {
@@ -173,12 +156,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 			return imageAgent.getImageFromUrl(video.getThumbnailUrl());
 		}
 
-
 		@Override
 		public String getHeader(YoutubeVideo video, Language language) {
 			return video.getTitle();
 		}
-
 
 		@Override
 		public String getExtract(YoutubeVideo video, Language language) {
@@ -186,23 +167,19 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
-
 	public static class YoutubeVideoTransferHandlingAspect implements TransferHandling<YoutubeVideo> {
 
 		private final BaseContext _context;
 
-
 		private YoutubeVideoTransferHandlingAspect(BaseContext context) {
 			_context = context;
 		}
-
 
 		@Override
 		public void registerHandlers(HandlerHost<YoutubeVideo> host) {
 			TransferAgent transferAgent = _context.requireSpecialist(TransferAgent.TYPE);
 			host.registerHandler(transferAgent.getRawValueType(YoutubeVideo.class), new YoutubeVideoHandler());
 		}
-
 
 		static class YoutubeVideoHandler implements HandlerHost.Handler<YoutubeVideo, YoutubeVideo> {
 
@@ -213,16 +190,13 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
-
 	public static class YoutubeVideoTransferSupplyingAspect implements TransferSupplying<YoutubeVideo> {
 
 		private final BaseContext _context;
 
-
 		private YoutubeVideoTransferSupplyingAspect(BaseContext context) {
 			_context = context;
 		}
-
 
 		@Override
 		public void registerSuppliers(SupplierHost<YoutubeVideo> host) {
@@ -232,7 +206,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 			host.registerSupplier(transferAgent.getQuerySegmentType(), new YoutubeVideoSegmentSupplier());
 		}
 
-
 		static class YoutubeVideoSupplier implements SupplierHost.Supplier<YoutubeVideo, YoutubeVideo> {
 
 			@Override
@@ -240,7 +213,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 				return Collections.singletonList(video);
 			}
 		}
-
 
 		static class YoutubeVideoTextSupplier implements SupplierHost.Supplier<YoutubeVideo, String> {
 
@@ -250,7 +222,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 			}
 		}
 
-
 		static class YoutubeVideoSegmentSupplier implements SupplierHost.Supplier<YoutubeVideo, SegmentProvider> {
 
 			@Override
@@ -258,16 +229,13 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 				return Collections.singletonList(new YoutubeVideoQuerySegmentProvider(video.getId()));
 			}
 
-
 			static class YoutubeVideoQuerySegmentProvider implements SegmentProvider {
 
 				private final String _segment;
 
-
 				YoutubeVideoQuerySegmentProvider(String segment) {
 					_segment = segment;
 				}
-
 
 				@Override
 				public String getSegment() {
@@ -277,14 +245,12 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
-
 	public static class YoutubeVideoDataTemplatingAspect implements DataTemplating<YoutubeVideo> {
 
 		@Override
 		public String getTemplate(YoutubeVideo video, Language language) {
 			return "<div style=\"width: 450px;\"><div style=\"font-size: 1.5em; line-height: 1.3;\">${title}</div><img src=\"${posterUrl}\" style=\"display: block; width: 100%; margin: 10px 0\"><div style=\"overflow: hidden; max-height: 7em; white-space: pre-wrap; word-break: break-word;\">${description}</div></div>";
 		}
-
 
 		@Override
 		public void registerParameters(ParameterSet parameters, YoutubeVideo video, Language language) {
@@ -294,10 +260,8 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
-
 	public static class YoutubeVideoValueIndexingAspect implements ValueIndexing {
 		// TODO check d'n'd
-
 
 		@Override
 		public void appendIndexData(String identifier, Language language, boolean recursive, ValueIndexer indexer) {

@@ -23,16 +23,13 @@ public class YoutubeIntegrationIcons {
 	 */
 	private static final String WE_PATTERN = "yt/icons/%s.svg";
 
-
 	private YoutubeIntegrationIcons() {
 		throw new IllegalStateException("Utility class");
 	}
 
-
 	private static Icon getIcon(String baseName) {
 		return new ImageIcon(YoutubeIntegrationIcons.class.getResource(String.format(JC_PATTERN, baseName)));
 	}
-
 
 	private static Image<?> getImageIcon(BaseContext context, String baseName) {
 		try {
@@ -48,7 +45,6 @@ public class YoutubeIntegrationIcons {
 		return null;
 	}
 
-
 	/**
 	 * Gets an icon for an active button.
 	 *
@@ -59,7 +55,6 @@ public class YoutubeIntegrationIcons {
 		return getImageIcon(context, "youtube_active");
 	}
 
-
 	/**
 	 * Gets an icon for an inactive button
 	 *
@@ -69,7 +64,6 @@ public class YoutubeIntegrationIcons {
 	public static Image<?> getInactive(BaseContext context) {
 		return getImageIcon(context, "youtube_inactive");
 	}
-
 
 	/**
 	 * Gets video icon.

@@ -1,6 +1,5 @@
 package com.espirit.se.modules.youtube.webedit;
 
-
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.webedit.plugin.ClientResourcePlugin;
 
@@ -8,7 +7,6 @@ import com.espirit.moddev.components.annotations.PublicComponent;
 
 import java.util.Collections;
 import java.util.List;
-
 
 /**
  * The FirstSpirit Youtube integration client resource plugin.
@@ -25,12 +23,10 @@ public class YoutubeIntegrationClientResourcePlugin implements ClientResourcePlu
 		// Nothing needs to be done here
 	}
 
-
 	@Override
 	public void tearDown() {
 		// Nothing needs to be done here
 	}
-
 
 	/**
 	 * Provides the absolute javascript url to be loaded in the ContentCreator.

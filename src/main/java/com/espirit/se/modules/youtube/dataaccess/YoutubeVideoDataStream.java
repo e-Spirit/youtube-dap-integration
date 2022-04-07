@@ -1,6 +1,5 @@
 package com.espirit.se.modules.youtube.dataaccess;
 
-
 import de.espirit.common.tools.Strings;
 import de.espirit.firstspirit.access.BaseContext;
 import de.espirit.firstspirit.client.plugin.dataaccess.DataStream;
@@ -33,7 +32,6 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 	private Iterator<YoutubeVideo> _data = null;
 	private Iterator<Channel> _channels = null;
 
-
 	private YoutubeVideoDataStream(BaseContext context, YoutubeVideos youtubeVideos, @Nullable String query, @Nullable String channel) {
 		_countAll = 0;
 		_total = -1;
@@ -46,12 +44,10 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		_channels = _youtubeVideos.getChannels().iterator();
 	}
 
-
 	@Override
 	public void close() {
 		_data = null;
 	}
-
 
 	@Override
 	public List<YoutubeVideo> getNext(int count) {
@@ -77,12 +73,10 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		return videoList;
 	}
 
-
 	@Override
 	public int getTotal() {
 		return _total;
 	}
-
 
 	@Override
 	public boolean hasNext() {
@@ -134,12 +128,10 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 			_aspects.put(Filterable.TYPE, _filterableAspect);
 		}
 
-
 		@Override
 		public DataStream<YoutubeVideo> createDataStream() {
 			return new YoutubeVideoDataStream(_context, _youtubeVideos, _filterableAspect.getQuery(), _filterableAspect.getChannel());
 		}
-
 
 		@Override
 		public <A> A getAspect(StreamBuilderAspectType<A> aspectType) {
@@ -157,14 +149,12 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
 		private ParameterMap _filter = null;
 
-
 		private FilterableAspect(List<ParameterSelect.SelectItem> selectItems) {
 			if (selectItems != null && !selectItems.isEmpty()) {
 				_channel = Parameter.Factory.createSelect("channelFilterSelect", selectItems, "all");
 			}
 			_query = Parameter.Factory.createText("query", "", "");
 		}
-
 
 		@Override
 		public List<Parameter<?>> getDefinedParameters() {
@@ -176,7 +166,6 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
 			return pList;
 		}
-
 
 		@Override
 		public void setFilter(ParameterMap filter) {

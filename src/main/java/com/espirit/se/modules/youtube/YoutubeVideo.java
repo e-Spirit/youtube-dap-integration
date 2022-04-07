@@ -16,7 +16,6 @@ public class YoutubeVideo {
 	private final String _thumbnailUrl;
 	private final String _posterUrl;
 
-
 	/**
 	 * Instantiates a new Youtube video data object.
 	 *
@@ -34,7 +33,6 @@ public class YoutubeVideo {
 		_posterUrl = posterUrl;
 	}
 
-
 	/**
 	 * Gets ID that YouTube uses to uniquely identify the video.
 	 *
@@ -43,7 +41,6 @@ public class YoutubeVideo {
 	public String getId() {
 		return _id;
 	}
-
 
 	/**
 	 * Gets video's title.
@@ -54,7 +51,6 @@ public class YoutubeVideo {
 		return _title;
 	}
 
-
 	/**
 	 * Gets video's description.
 	 *
@@ -64,7 +60,6 @@ public class YoutubeVideo {
 		return _description;
 	}
 
-
 	/**
 	 * Gets thumbnail url for this video.
 	 *
@@ -73,7 +68,6 @@ public class YoutubeVideo {
 	public String getThumbnailUrl() {
 		return _thumbnailUrl;
 	}
-
 
 	/**
 	 * Gets high quality image for this video.

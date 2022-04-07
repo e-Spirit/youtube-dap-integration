@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipFile;
 
-
 /**
  * The FirstSpirit Youtube integration project config.
  */
@@ -36,7 +35,6 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 	 */
 	public static final String CONFIG_CHANNEL_IDS = "channel_ids";
 
-
 	@Override
 	protected void configure() {
 		ConfigGuiBuilder builder = builder().title("YouTube Integration Configuration");
@@ -50,14 +48,12 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 		builder.button("Import Sample Template", "import_button", importSampleSectionAction, null);
 	}
 
-
 	/**
 	 * Action to test if the current configuration is valid.
 	 */
 	private static class CheckSettingsAction implements ExecuteAction {
 
 		private final YoutubeIntegrationProjectConfig _config;
-
 
 		/**
 		 * Instantiates a new Check settings action.
@@ -67,7 +63,6 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 		CheckSettingsAction(YoutubeIntegrationProjectConfig config) {
 			_config = config;
 		}
-
 
 		/**
 		 * Checks if the current configuration is valid
@@ -96,7 +91,6 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 
 		private final SpecialistsBroker _broker;
 
-
 		/**
 		 * Instantiates a new Import sample section action.
 		 *
@@ -105,7 +99,6 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 		ImportSampleSectionAction(SpecialistsBroker broker) {
 			_broker = broker;
 		}
-
 
 		/**
 		 * Imports the section template.

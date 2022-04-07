@@ -7,7 +7,6 @@ import de.espirit.firstspirit.module.descriptor.WebAppDescriptor;
 import com.espirit.moddev.components.annotations.WebAppComponent;
 import com.espirit.moddev.components.annotations.WebResource;
 
-
 /**
  * The FirstSpirit Youtube integration content creator WebApp.
  * Is needed to provide a WebApp with all needed resources.
@@ -26,24 +25,20 @@ public class YoutubeIntegrationContentCreator implements WebApp {
 		// Nothing needs to be done here
 	}
 
-
 	@Override
 	public void init(WebAppDescriptor webAppDescriptor, WebEnvironment webEnvironment) {
 		// Nothing needs to be done here
 	}
-
 
 	@Override
 	public void installed() {
 		// Nothing needs to be done here
 	}
 
-
 	@Override
 	public void uninstalling() {
 		// Nothing needs to be done here
 	}
-
 
 	@Override
 	public void updated(String s) {
