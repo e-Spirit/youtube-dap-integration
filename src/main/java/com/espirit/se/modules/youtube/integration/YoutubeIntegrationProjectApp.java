@@ -13,7 +13,8 @@ import com.espirit.ps.psci.genericconfiguration.Values;
  * Can be added to a FirstSpirit project to enable and configure Youtube integration.
  */
 // TODO: Naming, find better description
-@ProjectAppComponent(name = "YouTube-DAP-Integration")
+@ProjectAppComponent(name = "YouTube-DAP-Integration",
+		configurable = YoutubeIntegrationProjectConfig.class)
 public class YoutubeIntegrationProjectApp implements ProjectApp {
 
 	/**
