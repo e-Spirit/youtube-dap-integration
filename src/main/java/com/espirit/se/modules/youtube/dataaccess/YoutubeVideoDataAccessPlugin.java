@@ -26,10 +26,8 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
-
-// TODO: Add better description
 @PublicComponent(name = "YoutubeVideoDataAccessPlugin",
-		displayName = "Youtube Video Data Access Plugin",
+		displayName = "Data Access Plugin: Youtube Video",
 		description = "Youtube Video Data Access Plugin")
 public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVideo> {
 
@@ -134,7 +132,8 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 				YoutubeVideo video = context.getObject();
 				if (context.is(BaseContext.Env.WEBEDIT)) {
 					ClientScriptOperation clientScript = context.requireSpecialist(OperationAgent.TYPE).getOperation(ClientScriptOperation.TYPE);
-					String title = video.getTitle().replaceAll("'", "\\\\'");
+					String title = video.getTitle().replaceAll("(')", "\\\\'");
+
 					String script = String.format("openYoutubePreview('%s', '%s')", title, video.getId());
 					clientScript.perform(script, false);
 				} else {

@@ -6,14 +6,16 @@ import de.espirit.firstspirit.module.ProjectEnvironment;
 import de.espirit.firstspirit.module.descriptor.ProjectAppDescriptor;
 
 import com.espirit.moddev.components.annotations.ProjectAppComponent;
+import com.espirit.ps.psci.genericconfiguration.GenericConfigPanel;
 import com.espirit.ps.psci.genericconfiguration.Values;
 
 /**
  * The FirstSpirit Youtube integration project app.
  * Can be added to a FirstSpirit project to enable and configure Youtube integration.
  */
-// TODO: Naming, find better description
-@ProjectAppComponent(name = "YouTube-DAP-Integration",
+@ProjectAppComponent(name = "YoutubeVideoProjectApp",
+		displayName = "Project App: Youtube Video",
+		description = "Project application to configure the Youtube integration module.",
 		configurable = YoutubeIntegrationProjectConfig.class)
 public class YoutubeIntegrationProjectApp implements ProjectApp {
 
@@ -22,11 +24,11 @@ public class YoutubeIntegrationProjectApp implements ProjectApp {
 	 * the specified context and whether an API key is set.
 	 *
 	 * @param broker the project related broker
-	 * @return the true if the project app is installed and an API key is set, false otherwise
+	 * @return true if the project app is installed and an API key is set, false otherwise
 	 */
 	public static boolean isInstalled(SpecialistsBroker broker) {
-		if (YoutubeIntegrationProjectConfig.isInstalled(YoutubeIntegrationProjectApp.class, broker)) {
-			Values values = YoutubeIntegrationProjectConfig.values(broker, YoutubeIntegrationProjectApp.class);
+		if (GenericConfigPanel.isInstalled(YoutubeIntegrationProjectApp.class, broker)) {
+			Values values = GenericConfigPanel.values(broker, YoutubeIntegrationProjectApp.class);
 			String apiKey = values.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY);
 			return apiKey != null && !apiKey.isEmpty();
 		}

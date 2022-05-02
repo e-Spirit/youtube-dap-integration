@@ -18,7 +18,7 @@ import java.util.Map;
  * The FirstSpirit Youtube video drop executable.
  * Executable that can be used in FS_BUTTONS as onDrop action.
  * <pre>{@code
- * 	<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideo" useLanguages="no">
+ * 	<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideoExecutable" useLanguages="no">
  * 		<DROPTYPES>
  * 			<MIME classname="YoutubeVideo"/>
  * 		</DROPTYPES>
@@ -33,9 +33,8 @@ import java.util.Map;
  * 	</FS_BUTTON>
  * }</pre>
  */
-// TODO: Naming, find better description
-@PublicComponent(name = "DropYoutubeVideo",
-		displayName = "Youtube Drop Video Executable",
+@PublicComponent(name = "DropYoutubeVideoExecutable",
+		displayName = "Executable: Youtube Drop Video",
 		description = "Executable that can be used in FS_BUTTONS as onDrop action.")
 public class YoutubeVideoDropExecutable implements Executable {
 
@@ -43,17 +42,17 @@ public class YoutubeVideoDropExecutable implements Executable {
 	 * The constant that contains ID of the parameter for the video id form field.
 	 * e.g.: <pre>{@code <PARAM name="id">#field.st_videoId</PARAM>}</pre>
 	 */
-	private final static String PARAM_ID = "id";
+	private static final String PARAM_ID = "id";
 	/**
 	 * The constant that contains ID of the parameter for the video title form field.
 	 * e.g.: <pre>{@code <PARAM name="title">#field.st_title</PARAM>}</pre>
 	 */
-	private final static String PARAM_TITLE = "title";
+	private static final String PARAM_TITLE = "title";
 	/**
 	 * The constant that contains ID of the parameter for the video description form field.
 	 * e.g.: <pre>{@code <PARAM name="description">#field.st_description</PARAM>}</pre>
 	 */
-	private final static String PARAM_DESCRIPTION = "description";
+	private static final String PARAM_DESCRIPTION = "description";
 
 	@Override
 	public Object execute(final Map<String, Object> parameter) {
@@ -72,7 +71,7 @@ public class YoutubeVideoDropExecutable implements Executable {
 	}
 
 	/**
-	 * Transfers the information from the dropped object to the form.
+	 * Sets the information from the dropped object to the form.
 	 *
 	 * @param video
 	 * @param paramMap

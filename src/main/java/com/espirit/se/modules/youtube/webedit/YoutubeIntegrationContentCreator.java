@@ -9,12 +9,11 @@ import com.espirit.moddev.components.annotations.WebResource;
 
 /**
  * The FirstSpirit Youtube integration content creator WebApp.
- * Is needed to provide a WebApp with all needed resources.
+ * Required to provide all necessary resources.
  */
-// TODO: Naming, find better description
-@WebAppComponent(name = "YouTube-DAP-Integration WebApp",
-		displayName = "YouTube-DAP-Integration WebApp",
-		description = "WebApp that can be used to provide the integration in the ContentCreator.",
+@WebAppComponent(name = "YoutubeVideoWebApp",
+		displayName = "Web App: Youtube Video",
+		description = "Web application that can be used in the ContentCreator.",
 		webXml = "web/web.xml",
 		webResources = {@WebResource(name = "webfiles", version = "", path = "web/", targetPath = "/yt"),
 						@WebResource(name = "icons", version = "", path = "icons/", targetPath = "/yt/icons")})

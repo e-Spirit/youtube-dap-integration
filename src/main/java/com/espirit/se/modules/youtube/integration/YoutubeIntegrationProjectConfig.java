@@ -12,7 +12,7 @@ import de.espirit.firstspirit.module.ProjectEnvironment;
 
 import com.espirit.ps.psci.genericconfiguration.ExecuteAction;
 import com.espirit.ps.psci.genericconfiguration.GenericConfigPanel;
-import com.espirit.se.modules.youtube.YoutubeVideos;
+import com.espirit.se.modules.youtube.connector.YoutubeConnector;
 
 import javax.swing.JOptionPane;
 import java.io.File;
@@ -73,7 +73,7 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 			if (apiKey != null && !apiKey.isEmpty()) {
 				String channelIds = _config.getFormValue(CONFIG_CHANNEL_IDS);
 				try {
-					YoutubeVideos.checkSettings(apiKey, channelIds);
+					YoutubeConnector.checkSettings(apiKey, channelIds);
 					JOptionPane.showMessageDialog(null, "Connection successful!");
 				} catch (Exception e) {
 					Logging.logError(e.getMessage(), e, getClass());

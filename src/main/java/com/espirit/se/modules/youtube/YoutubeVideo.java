@@ -7,6 +7,7 @@ package com.espirit.se.modules.youtube;
  * @see com.espirit.se.modules.youtube.dataaccess.YoutubeVideoDataAccessPlugin
  * @see com.espirit.se.modules.youtube.dataaccess.YoutubeVideoDataAccessSession
  * @see com.espirit.se.modules.youtube.dataaccess.YoutubeVideoDataStream
+ * @see com.espirit.se.modules.youtube.connector.YoutubeVideoSearchRequest
  */
 public class YoutubeVideo {
 
@@ -25,7 +26,7 @@ public class YoutubeVideo {
 	 * @param thumbnailUrl the thumbnail url for this video
 	 * @param posterUrl    the high quality image for this video
 	 */
-	YoutubeVideo(String id, String title, String description, String thumbnailUrl, String posterUrl) {
+	public YoutubeVideo(String id, String title, String description, String thumbnailUrl, String posterUrl) {
 		_id = id;
 		_title = title;
 		_description = description;
@@ -77,4 +78,5 @@ public class YoutubeVideo {
 	public String getPosterUrl() {
 		return _posterUrl;
 	}
+
 }

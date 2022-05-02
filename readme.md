@@ -32,10 +32,10 @@ In your templates you could use a `FS_INDEX` to select a video from a list or a 
 Add this to your Form source:
 ```xml
 <FS_INDEX name="st_video" height="1" useLanguages="yes" viewMode="details">
-    <LANGINFOS>
-        <LANGINFO lang="*" label="Youtube Video"/>
-    </LANGINFOS>
-    <SOURCE name="YouTube-DAP-Integration/YoutubeVideoDataAccessPlugin"/>
+  <LANGINFOS>
+    <LANGINFO lang="*" label="Youtube Video"/>
+  </LANGINFOS>
+  <SOURCE name="YouTube-DAP-Integration/YoutubeVideoDataAccessPlugin"/>
 </FS_INDEX>
 ```
 
@@ -77,7 +77,7 @@ public interface YoutubeVideo {
 
 #### Using FS_BUTTON
 ```xml
-<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideo" useLanguages="no">
+<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideoExecutable" useLanguages="no">
 	<DROPTYPES>
 		<MIME classname="YoutubeVideo"/>
 	</DROPTYPES>

@@ -31,7 +31,7 @@ import de.espirit.firstspirit.json.JsonPair;
 import de.espirit.firstspirit.json.values.JsonStringValue;
 
 import com.espirit.se.modules.youtube.YoutubeVideo;
-import com.espirit.se.modules.youtube.YoutubeVideos;
+import com.espirit.se.modules.youtube.connector.YoutubeConnector;
 import com.espirit.se.modules.youtube.integration.YoutubeIntegrationIcons;
 
 import java.util.Collection;
@@ -74,12 +74,14 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 
 	@Override
 	public YoutubeVideo getData(String identifier) throws NoSuchElementException {
-		return YoutubeVideos.get(_context, identifier);
+		List<YoutubeVideo> youtubeVideos = getData(Collections.singletonList(identifier));
+		return youtubeVideos.isEmpty() ? null : youtubeVideos.get(0);
 	}
 
 	@Override
 	public List<YoutubeVideo> getData(Collection<String> identifierList) {
-		return YoutubeVideos.get(_context, identifierList);
+		YoutubeConnector youtubeConnector = YoutubeConnector.createInstance(_context);
+		return youtubeConnector.getVideo(identifierList);
 	}
 
 	@Override
@@ -261,8 +263,6 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 	}
 
 	public static class YoutubeVideoValueIndexingAspect implements ValueIndexing {
-		// TODO check d'n'd
-
 		@Override
 		public void appendIndexData(String identifier, Language language, boolean recursive, ValueIndexer indexer) {
 			indexer.append(ValueIndexer.VALUE_FIELD, identifier);

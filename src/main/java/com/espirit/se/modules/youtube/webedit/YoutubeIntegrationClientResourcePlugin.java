@@ -10,11 +10,10 @@ import java.util.List;
 
 /**
  * The FirstSpirit Youtube integration client resource plugin.
- * Plug-in providing resource urls to be loaded in webedit. In this case, the styling and logic for the Youtube player.
+ * Plug-in providing resource urls to be loaded in webedit.
  */
-// TODO: Naming, find better description
-@PublicComponent(name = "YoutubeClientResourcePlugin",
-		displayName = "Youtube Client Resource Plugin",
+@PublicComponent(name = "YoutubeVideoClientResourcePlugin",
+		displayName = "Client Resource Plugin: Youtube Video",
 		description = "Provides the required css and javascript files.")
 public class YoutubeIntegrationClientResourcePlugin implements ClientResourcePlugin {
 
