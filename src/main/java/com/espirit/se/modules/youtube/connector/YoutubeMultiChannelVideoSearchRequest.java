@@ -8,6 +8,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 
 	private void setTotal() {
 		if (_total < 0) {
-			_total = _channels.stream().map(RequestChannel::getTotal).reduce(0, Integer::sum);
+			_total = _channels.stream().map(RequestChannel::getTotalVideos).reduce(0, Integer::sum);
 		}
 	}
 
@@ -93,24 +94,13 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 			Iterator<RequestChannel> iterator = requestChannelList.iterator();
 			while (iterator.hasNext()) {
 				final RequestChannel requestChannel = iterator.next();
+				int currentRequestSize = channelRequestSize;
 				if (channelRequestSizeFactor > 0) {
-					_youtubeRequestList.setMaxResults(Long.valueOf(channelRequestSize) + 1);
+					currentRequestSize++;
 					channelRequestSizeFactor--;
-				} else {
-					_youtubeRequestList.setMaxResults(Long.valueOf(channelRequestSize));
 				}
-				if (Strings.notEmpty(requestChannel.getPageToken())) {
-					_youtubeRequestList.setPageToken(requestChannel.getPageToken());
-				}
-				_youtubeRequestList.setChannelId(requestChannel.getChannel().getId());
 				try {
-					SearchListResponse searchListResponse = _youtubeRequestList.execute();
-					requestChannel.setPageToken(searchListResponse.getNextPageToken());
-					requestChannel.setTotal(searchListResponse.getPageInfo().getTotalResults());
-					List<SearchResult> searchResults = searchListResponse.getItems();
-					requestChannel.setConsumed(requestChannel.getConsumed() + searchResults.size());
-					Logging.logTrace(requestChannel.toString(), LOGGER);
-					resultList.addAll(searchResults.stream().map(YoutubeVideoSearchRequest::createYoutubeVideo).collect(Collectors.toList()));
+					resultList.addAll(executeYoutubeVideosRequest(requestChannel, currentRequestSize));
 				} catch (IOException e) {
 					Logging.logError("Error requesting videos", e, LOGGER);
 					_hasNext = false;
@@ -123,6 +113,26 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 		return resultList;
 	}
 
+	@Nullable
+	private List<YoutubeVideo> executeYoutubeVideosRequest(final RequestChannel requestChannel, final int currentRequestSize) throws IOException {
+		_youtubeRequestList.setMaxResults(Long.valueOf(currentRequestSize));
+		if (Strings.notEmpty(requestChannel.getPageToken())) {
+			_youtubeRequestList.setPageToken(requestChannel.getPageToken());
+		}
+		_youtubeRequestList.setChannelId(requestChannel.getChannel().getId());
+		SearchListResponse searchListResponse = _youtubeRequestList.execute();
+		requestChannel.setPageToken(searchListResponse.getNextPageToken());
+		requestChannel.setTotalVideos(searchListResponse.getPageInfo().getTotalResults());
+		List<SearchResult> searchResults = searchListResponse.getItems();
+		if (searchResults.isEmpty()) {
+			requestChannel.setConsumed(true);
+		} else {
+			requestChannel.setConsumedVideos(requestChannel.getConsumed() + searchResults.size());
+		}
+		Logging.logTrace(requestChannel.toString(), LOGGER);
+		return searchResults.stream().map(YoutubeVideoSearchRequest::createYoutubeVideo).collect(Collectors.toList());
+	}
+
 	@Override
 	public boolean hasNext() {
 		return _hasNext;
@@ -132,8 +142,9 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 
 		private final Channel _channel;
 		private String _pageToken = null;
-		private int _total = 0;
-		private int _consumed = 0;
+		private int _totalVideos = 0;
+		private int _consumedVideos = 0;
+		private boolean _consumed = false;
 
 		/**
 		 * Instantiates a new Request channel.
@@ -176,17 +187,17 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 		 *
 		 * @return the total
 		 */
-		public int getTotal() {
-			return _total;
+		public int getTotalVideos() {
+			return _totalVideos;
 		}
 
 		/**
 		 * Sets total.
 		 *
-		 * @param total the total
+		 * @param totalVideos the total
 		 */
-		public void setTotal(final int total) {
-			_total = total;
+		public void setTotalVideos(final int totalVideos) {
+			_totalVideos = totalVideos;
 		}
 
 		/**
@@ -195,7 +206,24 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 		 * @return the consumed
 		 */
 		public int getConsumed() {
+			return _consumedVideos;
+		}
+
+		/**
+		 * Sets consumed.
+		 *
+		 * @param consumedVideos the consumed
+		 */
+		public void setConsumedVideos(final int consumedVideos) {
+			_consumedVideos = consumedVideos;
+		}
+
+		public boolean isConsumed() {
 			return _consumed;
+		}
+
+		public void setConsumed(final boolean consumed) {
+			_consumed = consumed;
 		}
 
 		@Override
@@ -203,28 +231,10 @@ public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearch
 			return "RequestChannel{" +
 					"_channel=" + _channel +
 					", _pageToken='" + _pageToken + '\'' +
-					", _total=" + _total +
-					", _consumed=" + _consumed +
-					", isConsumed=" + isConsumed() +
+					", _total=" + _totalVideos +
+					", _consumed=" + _consumedVideos +
+					", isConsumed=" + _consumed +
 					'}';
-		}
-
-		/**
-		 * Is consumed.
-		 *
-		 * @return the boolean
-		 */
-		public boolean isConsumed() {
-			return _consumed != 0 && _consumed >= _total;
-		}
-
-		/**
-		 * Sets consumed.
-		 *
-		 * @param consumed the consumed
-		 */
-		public void setConsumed(final int consumed) {
-			_consumed = consumed;
 		}
 	}
 }
