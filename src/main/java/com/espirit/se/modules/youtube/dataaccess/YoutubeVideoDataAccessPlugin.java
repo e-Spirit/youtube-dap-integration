@@ -26,6 +26,7 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
+
 @PublicComponent(name = "YoutubeVideoDataAccessPlugin",
 		displayName = "Data Access Plugin: Youtube Video",
 		description = "Youtube Video Data Access Plugin")

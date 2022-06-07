@@ -44,7 +44,7 @@ public class YoutubeStandardVideoSearchRequest implements YoutubeVideoSearchRequ
 	 * @throws IOException the io exception
 	 */
 	public static YoutubeStandardVideoSearchRequest createInstance(final String apiKey, final YouTube youtube, final String query, final Channel channel) throws IOException {
-		Logging.logInfo(String.format("Create new request with query: '%s'", query), LOGGER);
+		Logging.logInfo(String.format("Create new request with query: '%s' and channel '%s'", query, channel), LOGGER);
 		YouTube.Search.List youtubeRequestList = youtube.search()
 				.list("snippet")
 				.setKey(apiKey)
