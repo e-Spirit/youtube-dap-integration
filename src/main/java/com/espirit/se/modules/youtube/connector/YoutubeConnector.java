@@ -2,13 +2,9 @@ package com.espirit.se.modules.youtube.connector;
 
 import de.espirit.common.base.Logging;
 import de.espirit.common.tools.Strings;
-import de.espirit.firstspirit.agency.SpecialistsBroker;
 
-import com.espirit.ps.psci.genericconfiguration.GenericConfigPanel;
-import com.espirit.ps.psci.genericconfiguration.Values;
 import com.espirit.se.modules.youtube.YoutubeVideo;
-import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectApp;
-import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectConfig;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationConfig;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -26,9 +22,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Youtube base class supports core features, such as searching and retrieving videos.
@@ -57,28 +54,42 @@ public class YoutubeConnector {
 	/**
 	 * Static factory method to create a new Youtube Connector instance.
 	 *
-	 * @param broker the broker
+	 * @param youtubeIntegrationConfig with all parameters to establish a connection to YouTube.
 	 * @return youtube connector
 	 */
 	@Nullable
-	public static YoutubeConnector createInstance(SpecialistsBroker broker) {
-		if (YoutubeIntegrationProjectApp.isInstalled(broker)) {
-			Values values = GenericConfigPanel.values(broker, YoutubeIntegrationProjectApp.class);
-			String apiKey = values.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY);
-			if (apiKey != null && !apiKey.isEmpty()) {
-				YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
-				}).setApplicationName(APP_NAME).build();
-				String channelIds = values.getString(YoutubeIntegrationProjectConfig.CONFIG_CHANNEL_IDS);
-				List<Channel> channels = new ArrayList<>();
-				if (channelIds != null && !channelIds.isEmpty()) {
-					try {
-						channels = getYoutubeChannels(youtube, apiKey, channelIds);
-					} catch (IOException e) {
-						Logging.logError("Error while creating instance of Youtube Connector: ", e, LOGGER);
-					}
+	public static YoutubeConnector createInstance(YoutubeIntegrationConfig youtubeIntegrationConfig) {
+		Logging.logDebug("Create new Instance", LOGGER);
+		if (Strings.notEmpty(youtubeIntegrationConfig.getApiKey())) {
+			YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
+			}).setApplicationName(APP_NAME).build();
+
+			List<Channel> channels = new ArrayList<>();
+			if (!youtubeIntegrationConfig.getChannelIds().isEmpty()) {
+				try {
+					channels = getYoutubeChannels(youtube, youtubeIntegrationConfig.getApiKey(), youtubeIntegrationConfig.getChannelIds());
+				} catch (IOException e) {
+					Logging.logError("Error while creating instance of Youtube Connector: ", e, LOGGER);
 				}
-				return new YoutubeConnector(youtube, channels, apiKey);
 			}
+			return new YoutubeConnector(youtube, channels, youtubeIntegrationConfig.getApiKey());
+		}
+		return null;
+	}
+
+	/**
+	 * Static factory method to create a new Youtube Connector instance. Any configured channels are ignored.
+	 *
+	 * @param youtubeIntegrationConfig with all parameters to establish a connection to YouTube.
+	 * @return youtube connector
+	 */
+	@Nullable
+	public static YoutubeConnector createChannellessInstance(YoutubeIntegrationConfig youtubeIntegrationConfig) {
+		Logging.logDebug("Create new channelless instance.", LOGGER);
+		if (Strings.notEmpty(youtubeIntegrationConfig.getApiKey())) {
+			YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
+			}).setApplicationName(APP_NAME).build();
+			return new YoutubeConnector(youtube, Collections.emptyList(), youtubeIntegrationConfig.getApiKey());
 		}
 		return null;
 	}
@@ -116,10 +127,22 @@ public class YoutubeConnector {
 	 * @throws IOException
 	 */
 	private static List<Channel> getYoutubeChannels(@NotNull final YouTube youtube, @NotNull final String apiKey, @NotNull final String channelIds) throws IOException {
+		List<String> channelIdList = Arrays.stream(channelIds.split(",")).map(String::trim).collect(Collectors.toList());
+		return getYoutubeChannels(youtube, apiKey, channelIdList);
+	}
+
+	/**
+	 * Returns a list of Youtube channels based on the given IDs.
+	 *
+	 * @param youtube
+	 * @param apiKey
+	 * @param channelIds
+	 * @return a list of channels
+	 * @throws IOException
+	 */
+	private static List<Channel> getYoutubeChannels(@NotNull final YouTube youtube, @NotNull final String apiKey, @NotNull final List<String> channelIds) throws IOException {
 		List<Channel> result = new ArrayList<>();
-		Iterator<String> channelIterator = Arrays.stream(channelIds.split(",")).map(String::trim).iterator();
-		while (channelIterator.hasNext()) {
-			String channelId = channelIterator.next();
+		for (final String channelId : channelIds) {
 			ChannelListResponse channels = youtube.channels()
 					.list("snippet")
 					.setKey(apiKey)

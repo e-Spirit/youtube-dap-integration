@@ -15,6 +15,8 @@ import de.espirit.firstspirit.client.plugin.report.ParameterText;
 import com.espirit.se.modules.youtube.YoutubeVideo;
 import com.espirit.se.modules.youtube.connector.YoutubeConnector;
 import com.espirit.se.modules.youtube.connector.YoutubeVideoSearchRequest;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationConfig;
+import com.espirit.se.modules.youtube.integration.YoutubeIntegrationProjectApp;
 import com.google.api.services.youtube.model.Channel;
 
 import javax.annotation.Nullable;
@@ -74,7 +76,8 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		 * @param context the context
 		 */
 		Builder(BaseContext context) {
-			_youtubeConnector = YoutubeConnector.createInstance(context);
+			YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(context);
+			_youtubeConnector = YoutubeConnector.createInstance(configuration);
 			_aspects = new StreamBuilderAspectMap();
 
 			List<ParameterSelect.SelectItem> selectItems = new ArrayList<>();
