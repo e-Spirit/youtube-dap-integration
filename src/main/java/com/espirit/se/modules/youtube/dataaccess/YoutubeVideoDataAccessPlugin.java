@@ -27,6 +27,11 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Basic class to provide a Data Access Plugin that can be used within FirstSpirit, i.e. reports,
+ * input components, etc..  Please see FirstSpirit API for more information.
+ */
+
 @PublicComponent(name = "YoutubeVideoDataAccessPlugin",
 		displayName = "Data Access Plugin: Youtube Video",
 		description = "Youtube Video Data Access Plugin")
@@ -34,6 +39,7 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 
 	private final DataAccessAspectMap _aspects = new DataAccessAspectMap();
 
+	@Override
 	public void setUp(BaseContext context) {
 		if (YoutubeIntegrationProjectApp.isInstalled(context)) {
 			_aspects.put(Reporting.TYPE, new YouTubeVideoReportingAspect(context));
@@ -41,6 +47,7 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 		}
 	}
 
+	@Override
 	public void tearDown() {
 		// Nothing needs to be done here
 	}
@@ -65,6 +72,9 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 		return "YouTube";
 	}
 
+	/**
+	 * Basic class to set up a Content Creator Report. Please see FirstSpirit API for more information.
+	 */
 	public static class YouTubeVideoReportingAspect implements Reporting {
 
 		private final BaseContext _context;
@@ -101,6 +111,9 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 			return Collections.emptyList();
 		}
 
+		/**
+		 * Basic class to handle report icons, i.e. click event, etc.. Please see FirstSpirit API for more information.
+		 */
 		private class YoutubeVideoPreviewItem implements JavaClientExecutableReportItem<YoutubeVideo>, WebeditExecutableReportItem<YoutubeVideo> {
 
 			@Override
@@ -128,16 +141,30 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 				return null;
 			}
 
+			/**
+			 * This method is used to specify the performed action when a report item is clicked.
+			 * Here, an overlay window with a video preview is shown when in Content Creator or a Browser window
+			 * otherwise.
+			 *
+			 * @param context
+			 */
 			@Override
 			public void execute(ReportContext<YoutubeVideo> context) {
 				YoutubeVideo video = context.getObject();
+
 				if (context.is(BaseContext.Env.WEBEDIT)) {
+
+					//Execution in Content Creator (open JS overlay)
+
 					ClientScriptOperation clientScript = context.requireSpecialist(OperationAgent.TYPE).getOperation(ClientScriptOperation.TYPE);
 					String title = video.getTitle().replaceAll("(')", "\\\\'");
 
 					String script = String.format("openYoutubePreview('%s', '%s')", title, video.getId());
 					clientScript.perform(script, false);
 				} else {
+
+					//Execution in Site Architect (open browser window)
+
 					String url = "https://www.youtube.com/watch?v=" + video.getId();
 					try {
 						Desktop desktop = Desktop.getDesktop();

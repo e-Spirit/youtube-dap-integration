@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * The FirstSpirit Youtube video data stream.
+ * Please see FirstSpirit API for more information.
  */
 public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
@@ -60,14 +61,12 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
 	/**
 	 * The FirstSpirit Youtube video data stream builder.
+	 * Please see FirstSpirit API for more information.
 	 */
 	public static class Builder implements DataStreamBuilder<YoutubeVideo> {
 
 		private final FilterableAspect _filterableAspect;
 		private final StreamBuilderAspectMap _aspects;
-		/**
-		 * private final YoutubeVideos _youtubeVideos;
-		 */
 		private final YoutubeConnector _youtubeConnector;
 
 		/**
@@ -110,6 +109,7 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 
 	/**
 	 * Aspect to provide filters for a data stream.
+	 * Please see FirstSpirit API for more information.
 	 */
 	public static class FilterableAspect implements Filterable {
 

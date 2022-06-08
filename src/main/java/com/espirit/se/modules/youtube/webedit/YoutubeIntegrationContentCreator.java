@@ -12,7 +12,7 @@ import com.espirit.moddev.components.annotations.WebResource;
  * Required to provide all necessary resources.
  */
 @WebAppComponent(name = "YoutubeVideoWebApp",
-		displayName = "Web App: Youtube Video",
+		displayName = "Youtube Video Web App",
 		description = "Web application that can be used in the ContentCreator.",
 		webXml = "web/web.xml",
 		webResources = {@WebResource(name = "webfiles", version = "", path = "web/", targetPath = "/yt"),
