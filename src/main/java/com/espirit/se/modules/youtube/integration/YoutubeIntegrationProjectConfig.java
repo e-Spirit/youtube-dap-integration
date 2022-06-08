@@ -29,17 +29,17 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 	/**
 	 * The constant that contains the key used to store and retrieve the Youtube API key.
 	 */
-	public static final String CONFIG_API_KEY = "api_key";
+	public static final String API_KEY = "api_key";
 	/**
-	 * The constant that contains the key used to store and retrieve the youtube Channel IDs.
+	 * The constant that contains the key used to store and retrieve the YouTube Channel IDs.
 	 */
-	public static final String CONFIG_CHANNEL_IDS = "channel_ids";
+	public static final String CHANNEL_IDS = "channel_ids";
 
 	@Override
 	protected void configure() {
 		ConfigGuiBuilder builder = builder().title("YouTube Integration Configuration");
-		builder.text("Google API Key", CONFIG_API_KEY, "");
-		builder.text("Channel IDs (optional)", CONFIG_CHANNEL_IDS, "");
+		builder.text("Google API Key", API_KEY, "");
+		builder.text("Channel IDs (optional)", CHANNEL_IDS, "");
 
 		CheckSettingsAction checkSettingsAction = new CheckSettingsAction(this);
 		builder.button("Check Settings", "check_button", checkSettingsAction, null);
@@ -69,9 +69,9 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 		 */
 		@Override
 		public void perform() {
-			String apiKey = _config.getFormValue(CONFIG_API_KEY);
+			String apiKey = _config.getFormValue(API_KEY);
 			if (apiKey != null && !apiKey.isEmpty()) {
-				String channelIds = _config.getFormValue(CONFIG_CHANNEL_IDS);
+				String channelIds = _config.getFormValue(CHANNEL_IDS);
 				try {
 					YoutubeConnector.checkSettings(apiKey, channelIds);
 					JOptionPane.showMessageDialog(null, "Connection successful!");

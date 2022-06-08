@@ -1,19 +1,60 @@
 # YouTube-DAP-Integration
-**Status: _RC1_**
+**Status: _stable release_**
+
+This module integrates access to YouTube into FirstSpirit. A report is created which lists 
+videos that could be searched and filtered by channels. Content could be integrated using drag &
+drop.
+
+The implementation serves as an example on how to create, build and install modules for third party
+integrations.
+
 
 
 ## Requirements
-* Java 1.8
-* FirstSpirit 5.2.25+
-  * _tested with 5.2.608_ 
+* Java 11
+* FirstSpirit 5.2.200303+
+  * _tested with 5.2.220512_ 
 
+## Building the module
+Please be aware that you will need access to our artifactory to compile and build the module 
+as you won't be able to get all required dependencies otherwise. Please see [FirstSpirit ODFS](https://docs.e-spirit.com/odfs/plug-developmen/implementation/index.html) for general
+information on how to setup and build FirstSpirit modules. 
+
+### Setting up work environment
+As a developer you need to set up your environment. This has only to be done once since the 
+configuration is shared for all repositories. Therefore you will have to set artifactory credentials.
+
+#### Setting artifactory credentials to access Module
+Dependencies specified in your module will be downloaded from our artifactory which acts as
+a Maven repository. For this to work you need to specify the credentials in your personal, not
+module-local gradle.properties (see specification of [Gradle Properties](https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties)).
+The file is located in `$HOME/.gradle/gradle.properties` and should contain at least these lines:
+```
+artifactory_hosting_username=CLOUD_USERNAME
+artifactory_hosting_password=CLOUD_ENCRYPTED_PASSWORD
+```
+`CLOUD_USERNAME` is usually your complete e-mail address. The encrypted password can be
+retrieved through a simple [artifactory REST call](https://artifactory.e-spirit.hosting/artifactory/api/security/encryptedPassword).
+(If prompted for a username and password, please use your cloud credentials.)
+
+### Executing Gradle task
+To actually build the module navigate to your project directory and execute
+```
+./gradlew build
+```
+This will use the gradle version that comes with this module. If you want to use a locally installed version of gradle
+for any reason you can simply call
+```
+gradle build
+```
+Afterwards the module binary can be found in `build/fsm/YouTube-DAP-Integration-version.fsm`.
 
 ## Installation
 1. Install the Module (YouTube-DAP-Integration-_version_.fsm)
-2. In general add the Project App "_YouTube-DAP-Integration_" to enable the report for any project 
-3. To enable the report in **ContentCreator**, add (and deploy) the web component "_YouTube-DAP-Integration WebApp_" in _ContentCreator_ web application (project-local or global*) 
+2. In general add the Project App "_Youtube Video Project App_" to enable the report for any project 
+3. To enable the report in **ContentCreator**, add (and deploy) the web component "_Youtube Video Web App_" in _ContentCreator_ web application (project-local or global*) 
 
-\* _even if the component is installed globally, the report is only available if the Project App is installed for the project_ 
+_Even if the component is installed globally, the report is only available if the Project App is installed for the project_. 
 
 
 ## Configuration 
@@ -64,7 +105,7 @@ $CMS_END_IF$
 
 ##### YoutubeVideo Interface
 ```java
-package com.espirit.ps.custom.youtube;
+package com.espirit.se.modules.youtube;
 
 public interface YoutubeVideo {
     String getId();
@@ -77,7 +118,7 @@ public interface YoutubeVideo {
 
 #### Using FS_BUTTON
 ```xml
-<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:DropYoutubeVideoExecutable" useLanguages="no">
+<FS_BUTTON name="st_dropVideo" alwaysEnabled="no" hFill="yes" onDrop="class:YoutubeVideoDropExecutable" useLanguages="no">
 	<DROPTYPES>
 		<MIME classname="YoutubeVideo"/>
 	</DROPTYPES>
@@ -111,3 +152,16 @@ The params `id`, `title` and `description` are each optional. The value must be 
 * Drag and drop a video on String-based input component to clone the video title
 * Drag and drop a video on FS_INDEX to add/replace a video
 * Drag and drop on the global search bar to force a search for usages of this video
+
+## Legal Notices
+The YouTube-DAP-Integration is a reference of [e-Spirit GmbH](http://www.e-spirit.com/), Dortmund, Germany.
+The YouTube-DAP-Integration is subject to the Apache-2.0 license.
+
+## Disclaimer
+This document is provided for information purposes only. e-Spirit may change the contents 
+hereof without notice. This document is not warranted to be error-free, nor subject to any 
+other warranties or conditions, whether expressed orally or implied in law, including implied 
+warranties and conditions of merchantability or fitness for a particular purpose. e-Spirit 
+specifically disclaims any liability with respect to this document and no contractual 
+obligations are formed either directly or indirectly by this document. The technologies, 
+functionality, services, and processes described herein are subject to change without notice.

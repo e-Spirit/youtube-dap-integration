@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * Can be added to a FirstSpirit project to enable and configure Youtube integration.
  */
 @ProjectAppComponent(name = "YoutubeVideoProjectApp",
-		displayName = "Project App: Youtube Video",
+		displayName = "Youtube Video Project App",
 		description = "Project application to configure the Youtube integration module.",
 		configurable = YoutubeIntegrationProjectConfig.class)
 public class YoutubeIntegrationProjectApp implements ProjectApp {
@@ -49,8 +49,8 @@ public class YoutubeIntegrationProjectApp implements ProjectApp {
 	public static YoutubeIntegrationConfig getConfiguration(SpecialistsBroker broker) {
 		if (GenericConfigPanel.isInstalled(YoutubeIntegrationProjectApp.class, broker)) {
 			Values values = GenericConfigPanel.values(broker, YoutubeIntegrationProjectApp.class);
-			String apiKey = values.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY);
-			String channelIds = values.getString(YoutubeIntegrationProjectConfig.CONFIG_CHANNEL_IDS);
+			String apiKey = values.getString(YoutubeIntegrationProjectConfig.API_KEY);
+			String channelIds = values.getString(YoutubeIntegrationProjectConfig.CHANNEL_IDS);
 			List<String> channelIdList = new ArrayList<>();
 			if (Strings.notEmpty(channelIds)) {
 				channelIdList = Arrays.stream(channelIds.split(",")).map(String::trim).collect(Collectors.toList());
