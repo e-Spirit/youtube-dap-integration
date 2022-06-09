@@ -83,7 +83,8 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 	@Override
 	public List<YoutubeVideo> getData(Collection<String> identifierList) {
 		YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(_context);
-		YoutubeConnector youtubeConnector = YoutubeConnector.createChannellessInstance(configuration);
+		// No channels are required to retrieve videos.
+		YoutubeConnector youtubeConnector = new YoutubeConnector.Builder().apikey(configuration.getApiKey()).build();
 		return youtubeConnector.getVideo(identifierList);
 	}
 

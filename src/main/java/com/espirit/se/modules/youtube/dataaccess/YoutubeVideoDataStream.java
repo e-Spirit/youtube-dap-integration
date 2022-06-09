@@ -77,7 +77,7 @@ public class YoutubeVideoDataStream implements DataStream<YoutubeVideo> {
 		 */
 		Builder(BaseContext context) {
 			YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(context);
-			_youtubeConnector = YoutubeConnector.createInstance(configuration);
+			_youtubeConnector = new YoutubeConnector.Builder().config(configuration).build();
 			_aspects = new StreamBuilderAspectMap();
 
 			List<ParameterSelect.SelectItem> selectItems = new ArrayList<>();

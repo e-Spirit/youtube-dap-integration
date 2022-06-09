@@ -19,6 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
 /**
@@ -73,7 +77,11 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 			if (apiKey != null && !apiKey.isEmpty()) {
 				String channelIds = _config.getFormValue(CONFIG_CHANNEL_IDS);
 				try {
-					YoutubeConnector.checkSettings(apiKey, channelIds);
+					List<String> channelIdList = new ArrayList<>();
+					if (!channelIds.isEmpty()){
+						channelIdList = Arrays.stream(channelIds.split(",")).map(String::trim).collect(Collectors.toList());
+					}
+					new YoutubeConnector.Builder().apikey(apiKey).channels(channelIdList).checkSettings();
 					JOptionPane.showMessageDialog(null, "Connection successful!");
 				} catch (Exception e) {
 					Logging.logError(e.getMessage(), e, getClass());
