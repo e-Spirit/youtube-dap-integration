@@ -78,7 +78,7 @@ public class YoutubeIntegrationProjectConfig extends GenericConfigPanel<ProjectE
 				String channelIds = _config.getFormValue(CONFIG_CHANNEL_IDS);
 				try {
 					List<String> channelIdList = new ArrayList<>();
-					if (!channelIds.isEmpty()){
+					if (!channelIds.isEmpty()) {
 						channelIdList = Arrays.stream(channelIds.split(",")).map(String::trim).collect(Collectors.toList());
 					}
 					new YoutubeConnector.Builder().apikey(apiKey).channels(channelIdList).checkSettings();
