@@ -41,7 +41,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
+/**
+ * Basic class to provide a Data Access Session to support the Data Access Plugin.
+ * Please see FirstSpirit API for more information.
+ */
 public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeVideo> {
 
 	private final BaseContext _context;
@@ -93,6 +96,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		return video.getId();
 	}
 
+	/**
+	 * Basic class to internally support URLs.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeUrlSupportingAspect implements UrlSupporting<YoutubeVideo> {
 
 		@Override
@@ -102,6 +109,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to support JSON representations in reports.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeJsonReportingAspect implements JsonSupporting<YoutubeVideo> {
 
 		@Override
@@ -122,6 +133,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to create a Data Access Session.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class Builder implements DataAccessSessionBuilder<YoutubeVideo> {
 
 		private final SessionBuilderAspectMap _aspects = new SessionBuilderAspectMap();
@@ -137,6 +152,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to implement report snippet representations.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeVideoDataSnippetProvider implements DataSnippetProvider<YoutubeVideo> {
 
 		private final BaseContext _context;
@@ -173,6 +192,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to internally handle data transfers, i.e. drag and drop, etc.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeVideoTransferHandlingAspect implements TransferHandling<YoutubeVideo> {
 
 		private final BaseContext _context;
@@ -196,6 +219,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to internally handle data transfers, i.e. drag and drop, etc.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeVideoTransferSupplyingAspect implements TransferSupplying<YoutubeVideo> {
 
 		private final BaseContext _context;
@@ -251,6 +278,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to implement report fly-outs.
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeVideoDataTemplatingAspect implements DataTemplating<YoutubeVideo> {
 
 		@Override
@@ -266,6 +297,10 @@ public class YoutubeVideoDataAccessSession implements DataAccessSession<YoutubeV
 		}
 	}
 
+	/**
+	 * Basic class to internally handle report listings
+	 * Please see FirstSpirit API for more information.
+	 */
 	public static class YoutubeVideoValueIndexingAspect implements ValueIndexing {
 
 		@Override
