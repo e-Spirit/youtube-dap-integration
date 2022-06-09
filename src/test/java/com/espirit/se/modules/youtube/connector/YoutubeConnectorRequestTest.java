@@ -20,7 +20,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class YoutubeConnectorRequestTest {
+class YoutubeConnectorRequestTest {
 
 	public static final String APIKEY = "apikey";
 	public static final String CHANNEL_1 = "Channel 1";
@@ -41,7 +41,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_NO_CHANNEL() {
+	void getSearchRequest_NO_CHANNEL() {
 		YoutubeConnector youtubeConnector = new YoutubeConnector(_youTubeMock, Collections.emptyList(), APIKEY);
 
 		YoutubeVideoSearchRequest searchRequest = youtubeConnector.getSearchRequest("searchPattern", "");
@@ -51,7 +51,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_ONE_CHANNEL() {
+	void getSearchRequest_ONE_CHANNEL() {
 		Channel channelMock = mock(Channel.class);
 		when(channelMock.getId()).thenReturn(CHANNEL_1);
 		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
@@ -66,7 +66,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_SEARCH_SINGLE_CHANNEL() {
+	void getSearchRequest_SEARCH_SINGLE_CHANNEL() {
 		Channel channelMock = mock(Channel.class);
 		when(channelMock.getId()).thenReturn(CHANNEL_1);
 		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
@@ -81,7 +81,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_SEARCH_IN_ONE_CHANNEL() {
+	void getSearchRequest_SEARCH_IN_ONE_CHANNEL() {
 		Channel channelMock = mock(Channel.class);
 		when(channelMock.getId()).thenReturn(CHANNEL_1);
 		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
@@ -96,7 +96,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_SEARCH_IN_UNKNOWN_CHANNEL() {
+	void getSearchRequest_SEARCH_IN_UNKNOWN_CHANNEL() {
 		Channel channelMock = mock(Channel.class);
 		when(channelMock.getId()).thenReturn("Unknown channel");
 
@@ -108,7 +108,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_SEARCH_IN_ALL_CHANNELS() {
+	void getSearchRequest_SEARCH_IN_ALL_CHANNELS() {
 		Channel channelMock = mock(Channel.class);
 		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
 		when(channelMock.getSnippet()).thenReturn(channelSnippetMock);
@@ -122,7 +122,7 @@ public class YoutubeConnectorRequestTest {
 	}
 
 	@Test
-	public void getSearchRequest_SEARCH_ALL_CHANNELS() {
+	void getSearchRequest_SEARCH_ALL_CHANNELS() {
 		Channel channelMock = mock(Channel.class);
 		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
 		when(channelMock.getSnippet()).thenReturn(channelSnippetMock);

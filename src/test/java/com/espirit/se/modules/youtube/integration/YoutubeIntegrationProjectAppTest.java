@@ -12,9 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,7 +45,7 @@ class YoutubeIntegrationProjectAppTest {
 			assertEquals(apikey, configuration.getApiKey());
 			assertNotNull(configuration.getChannelIds());
 			assertFalse(configuration.getChannelIds().isEmpty());
-			assertEquals(1 , configuration.getChannelIds().size());
+			assertEquals(1, configuration.getChannelIds().size());
 			assertTrue(configuration.getChannelIds().contains(channelId));
 		}
 	}
@@ -86,7 +84,7 @@ class YoutubeIntegrationProjectAppTest {
 			assertNotNull(configuration);
 			assertNotNull(configuration.getChannelIds());
 			assertFalse(configuration.getChannelIds().isEmpty());
-			assertEquals(2 , configuration.getChannelIds().size());
+			assertEquals(2, configuration.getChannelIds().size());
 			assertTrue(configuration.getChannelIds().contains("Channel 1"));
 			assertTrue(configuration.getChannelIds().contains("Channel 2"));
 		}
@@ -108,7 +106,7 @@ class YoutubeIntegrationProjectAppTest {
 			assertNotNull(configuration);
 			assertNotNull(configuration.getChannelIds());
 			assertFalse(configuration.getChannelIds().isEmpty());
-			assertEquals(1 , configuration.getChannelIds().size());
+			assertEquals(1, configuration.getChannelIds().size());
 			assertTrue(configuration.getChannelIds().contains("Channel 1"));
 		}
 	}

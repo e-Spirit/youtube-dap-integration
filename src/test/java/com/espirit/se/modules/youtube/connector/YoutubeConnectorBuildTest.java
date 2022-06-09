@@ -4,7 +4,6 @@ import com.espirit.se.modules.youtube.integration.YoutubeIntegrationConfig;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
-import com.google.api.services.youtube.model.ChannelSnippet;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,15 +29,14 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class YoutubeConnectorBuildTest {
+class YoutubeConnectorBuildTest {
 
 	public static final String APIKEY = "apikey";
 	public static final String CHANNEL_1 = "Channel 1";
-	@Mock
-	YoutubeIntegrationConfig _youtubeIntegrationConfig;
-
 	static YouTube _youTubeMock;
 	static YouTube.Channels.List _channelsListMock;
+	@Mock
+	YoutubeIntegrationConfig _youtubeIntegrationConfig;
 
 	@BeforeAll
 	static void beforeAll() throws IOException {
@@ -56,7 +54,7 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_EMPTY_API_KEY() {
+	void builder_EMPTY_API_KEY() {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn("");
 		YoutubeConnector youtubeConnector = new YoutubeConnector.Builder().config(_youtubeIntegrationConfig).build();
 
@@ -64,7 +62,7 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_NULL_API_KEY() {
+	void builder_NULL_API_KEY() {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn(null);
 		YoutubeConnector youtubeConnector = new YoutubeConnector.Builder().config(_youtubeIntegrationConfig).build();
 
@@ -72,14 +70,14 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_ONLY_API_KEY() {
+	void builder_ONLY_API_KEY() {
 		YoutubeConnector youtubeConnector = new YoutubeConnector.Builder().apikey(APIKEY).build();
 
 		assertNotNull(youtubeConnector);
 	}
 
 	@Test
-	public void builder_NO_CHANNELS() {
+	void builder_NO_CHANNELS() {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn(APIKEY);
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(null);
 		YoutubeConnector youtubeConnector = new YoutubeConnector.Builder().config(_youtubeIntegrationConfig).build();
@@ -89,7 +87,7 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_WITH_CHANNELS() throws IOException {
+	void builder_WITH_CHANNELS() throws IOException {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn(APIKEY);
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(Collections.singletonList(CHANNEL_1));
 		Channel channel = mock(Channel.class);
@@ -104,7 +102,7 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_getYoutubeChannels_NO_CHANNEL() throws IOException {
+	void builder_getYoutubeChannels_NO_CHANNEL() throws IOException {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn("apikey");
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(Collections.emptyList());
 
@@ -115,7 +113,7 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_getYoutubeChannels_ONE_CHANNEL() throws IOException {
+	void builder_getYoutubeChannels_ONE_CHANNEL() throws IOException {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn(APIKEY);
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(Collections.singletonList(CHANNEL_1));
 
@@ -135,7 +133,7 @@ public class YoutubeConnectorBuildTest {
 	}
 
 	@Test
-	public void builder_getYoutubeChannels_MULTI_CHANNEL_RESPONSE() throws IOException {
+	void builder_getYoutubeChannels_MULTI_CHANNEL_RESPONSE() throws IOException {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn("apikey");
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(Collections.singletonList(CHANNEL_1));
 
@@ -145,15 +143,16 @@ public class YoutubeConnectorBuildTest {
 		Channel channel = mock(Channel.class);
 		when(channelListResponseMock.getItems()).thenReturn(Arrays.asList(channel, channel));
 
+		YoutubeConnector.Builder builder = new YoutubeConnector.Builder().config(_youtubeIntegrationConfig);
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-			new YoutubeConnector.Builder().config(_youtubeIntegrationConfig).getYoutubeChannels(_youTubeMock);
+			builder.getYoutubeChannels(_youTubeMock);
 		});
 
 		assertTrue(exception.getMessage().contains("Unknown ChannelId"));
 	}
 
 	@Test
-	public void builder_getYoutubeChannels_NO_CHANNEL_RESPONSE() throws IOException {
+	void builder_getYoutubeChannels_NO_CHANNEL_RESPONSE() throws IOException {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn("apikey");
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(Collections.singletonList(CHANNEL_1));
 
@@ -162,15 +161,16 @@ public class YoutubeConnectorBuildTest {
 
 		when(channelListResponseMock.getItems()).thenReturn(Collections.emptyList());
 
+		YoutubeConnector.Builder builder = new YoutubeConnector.Builder().config(_youtubeIntegrationConfig);
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-			new YoutubeConnector.Builder().config(_youtubeIntegrationConfig).getYoutubeChannels(_youTubeMock);
+			builder.getYoutubeChannels(_youTubeMock);
 		});
 
 		assertTrue(exception.getMessage().contains("Unknown ChannelId"));
 	}
 
 	@Test
-	public void builder_getYoutubeChannels_CHANNEL_ID_MISMATCH() throws IOException {
+	void builder_getYoutubeChannels_CHANNEL_ID_MISMATCH() throws IOException {
 		when(_youtubeIntegrationConfig.getApiKey()).thenReturn("apikey");
 		when(_youtubeIntegrationConfig.getChannelIds()).thenReturn(Collections.singletonList(CHANNEL_1));
 
@@ -181,8 +181,9 @@ public class YoutubeConnectorBuildTest {
 		when(channel.getId()).thenReturn("Channel mismatch");
 		when(channelListResponseMock.getItems()).thenReturn(Arrays.asList(channel));
 
+		YoutubeConnector.Builder builder = new YoutubeConnector.Builder().config(_youtubeIntegrationConfig);
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-			new YoutubeConnector.Builder().config(_youtubeIntegrationConfig).getYoutubeChannels(_youTubeMock);
+			builder.getYoutubeChannels(_youTubeMock);
 		});
 
 		assertTrue(exception.getMessage().contains("Incomplete ChannelId"));

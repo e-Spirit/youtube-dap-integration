@@ -18,7 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -27,11 +30,12 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class YoutubeStandardVideoSearchRequestTest {
+
 	@Mock
 	YouTube.Search.List _youtubeRequestList;
 
 	@Test
-	public void getTotal() throws IOException {
+	void getTotal() throws IOException {
 		long requestSize = 20;
 		String pageToken = "pagetoken";
 		int totalResults = 40;
@@ -56,7 +60,7 @@ class YoutubeStandardVideoSearchRequestTest {
 	}
 
 	@Test
-	public void hasNext_TRUE() throws IOException {
+	void hasNext_TRUE() throws IOException {
 		long requestSize = 20;
 		int totalResults = 40;
 		when(_youtubeRequestList.setMaxResults(requestSize)).thenReturn(_youtubeRequestList);
@@ -80,7 +84,7 @@ class YoutubeStandardVideoSearchRequestTest {
 	}
 
 	@Test
-	public void hasNext_NOT() throws IOException {
+	void hasNext_NOT() throws IOException {
 		long requestSize = 20;
 		int totalResults = 40;
 		when(_youtubeRequestList.setMaxResults(requestSize)).thenReturn(_youtubeRequestList);
@@ -104,7 +108,7 @@ class YoutubeStandardVideoSearchRequestTest {
 	}
 
 	@Test
-	public void searchVideos_SET_PAGETOKEN() throws IOException {
+	void searchVideos_SET_PAGETOKEN() throws IOException {
 		long requestSize = 20;
 		String pageToken = "pagetoken";
 		int totalResults = 40;
