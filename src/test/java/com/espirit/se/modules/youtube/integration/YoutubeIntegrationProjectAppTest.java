@@ -36,8 +36,8 @@ class YoutubeIntegrationProjectAppTest {
 			String apikey = "apikey";
 			String channelId = "channelIds";
 			Values valuesMock = mock(Values.class);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY)).thenReturn(apikey);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_CHANNEL_IDS)).thenReturn(channelId);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.API_KEY)).thenReturn(apikey);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CHANNEL_IDS)).thenReturn(channelId);
 			genericConfigPanelMockedStatic.when(() -> GenericConfigPanel.values(specialistsBrokerMock, YoutubeIntegrationProjectApp.class)).thenReturn(valuesMock);
 			YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(specialistsBrokerMock);
 
@@ -57,8 +57,8 @@ class YoutubeIntegrationProjectAppTest {
 			genericConfigPanelMockedStatic.when(() -> GenericConfigPanel.isInstalled(YoutubeIntegrationProjectApp.class, specialistsBrokerMock)).thenReturn(true);
 			String apikey = "apikey";
 			Values valuesMock = mock(Values.class);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY)).thenReturn(apikey);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_CHANNEL_IDS)).thenReturn("");
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.API_KEY)).thenReturn(apikey);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CHANNEL_IDS)).thenReturn("");
 			genericConfigPanelMockedStatic.when(() -> GenericConfigPanel.values(specialistsBrokerMock, YoutubeIntegrationProjectApp.class)).thenReturn(valuesMock);
 			YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(specialistsBrokerMock);
 
@@ -76,8 +76,8 @@ class YoutubeIntegrationProjectAppTest {
 			String apikey = "apikey";
 			String channelId = "Channel 1, Channel 2";
 			Values valuesMock = mock(Values.class);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY)).thenReturn(apikey);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_CHANNEL_IDS)).thenReturn(channelId);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.API_KEY)).thenReturn(apikey);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CHANNEL_IDS)).thenReturn(channelId);
 			genericConfigPanelMockedStatic.when(() -> GenericConfigPanel.values(specialistsBrokerMock, YoutubeIntegrationProjectApp.class)).thenReturn(valuesMock);
 			YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(specialistsBrokerMock);
 
@@ -98,8 +98,8 @@ class YoutubeIntegrationProjectAppTest {
 			String apikey = "apikey";
 			String channelId = "Channel 1,";
 			Values valuesMock = mock(Values.class);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_API_KEY)).thenReturn(apikey);
-			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CONFIG_CHANNEL_IDS)).thenReturn(channelId);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.API_KEY)).thenReturn(apikey);
+			when(valuesMock.getString(YoutubeIntegrationProjectConfig.CHANNEL_IDS)).thenReturn(channelId);
 			genericConfigPanelMockedStatic.when(() -> GenericConfigPanel.values(specialistsBrokerMock, YoutubeIntegrationProjectApp.class)).thenReturn(valuesMock);
 			YoutubeIntegrationConfig configuration = YoutubeIntegrationProjectApp.getConfiguration(specialistsBrokerMock);
 
