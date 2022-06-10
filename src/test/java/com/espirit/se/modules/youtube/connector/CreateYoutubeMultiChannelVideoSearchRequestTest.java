@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CreateYoutubeMultiChannelVideoSearchRequestTest {
+
 	@Mock
 	YouTube _youTubeMock;
 
@@ -83,7 +84,6 @@ class CreateYoutubeMultiChannelVideoSearchRequestTest {
 		verify(searchListMock).setQ(query);
 		assertNotNull(youtubeMultiChannelVideoSearchRequest);
 	}
-
 
 	@NotNull
 	private Channel getChannelMock() {

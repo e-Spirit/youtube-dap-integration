@@ -1,8 +1,6 @@
 package com.espirit.se.modules.youtube.connector;
 
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.Channel;
-import com.google.api.services.youtube.model.ChannelSnippet;
 import com.google.api.services.youtube.model.PageInfo;
 import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
@@ -20,9 +18,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
