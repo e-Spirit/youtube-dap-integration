@@ -114,7 +114,7 @@ public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVid
 		/**
 		 * Basic class to handle report icons, i.e. click event, etc.. Please see FirstSpirit API for more information.
 		 */
-		private class YoutubeVideoPreviewItem implements JavaClientExecutableReportItem<YoutubeVideo>, WebeditExecutableReportItem<YoutubeVideo> {
+		static class YoutubeVideoPreviewItem implements JavaClientExecutableReportItem<YoutubeVideo>, WebeditExecutableReportItem<YoutubeVideo> {
 
 			@Override
 			public boolean isVisible(ReportContext<YoutubeVideo> context) {
