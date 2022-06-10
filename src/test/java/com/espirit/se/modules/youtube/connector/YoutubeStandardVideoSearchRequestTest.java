@@ -133,36 +133,6 @@ class YoutubeStandardVideoSearchRequestTest {
 		verify(_youtubeRequestList).setPageToken(pageToken);
 	}
 
-	@Test
-	void createInstance() throws IOException {
-		YouTube youTubeMock = mock(YouTube.class);
-		YouTube.Search searchMock = mock(YouTube.Search.class);
-		YouTube.Search.List searchListMock = mock(YouTube.Search.List.class);
-		when(searchListMock.setKey(anyString())).thenReturn(searchListMock);
-		when(searchListMock.setType(anyString())).thenReturn(searchListMock);
-		when(searchListMock.setQ(anyString())).thenReturn(searchListMock);
-		when(searchListMock.setChannelId(anyString())).thenReturn(searchListMock);
-		when(searchListMock.setFields(anyString())).thenReturn(searchListMock);
-		when(searchMock.list(any())).thenReturn(searchListMock);
-		when(youTubeMock.search()).thenReturn(searchMock);
-
-		String channelID = "Channel 1";
-		Channel channelMock = mock(Channel.class);
-		when(channelMock.getId()).thenReturn(channelID);
-		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
-		when(channelMock.getSnippet()).thenReturn(channelSnippetMock);
-		when(channelSnippetMock.getTitle()).thenReturn("Channel Title");
-
-		String apikey = "apikey";
-		String query = "query";
-		YoutubeStandardVideoSearchRequest youtubeStandardVideoSearchRequest = YoutubeStandardVideoSearchRequest.createInstance(apikey, youTubeMock, query, channelMock);
-		verify(searchListMock).setKey(apikey);
-		verify(searchListMock).setQ(query);
-		verify(searchListMock).setChannelId(channelID);
-
-		assertNotNull(youtubeStandardVideoSearchRequest);
-	}
-
 	private SearchResult getSearchResultMock() {
 		SearchResult searchResultMock = mock(SearchResult.class);
 		SearchResultSnippet searchResultSnippetMock = mock(SearchResultSnippet.class);
