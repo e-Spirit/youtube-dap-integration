@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class YoutubeVideoExecutableReportItem {
+public class YoutubeVideoExecutableReportItemTest {
 
 	static ReportContext _reportContextMock;
 	static ClientScriptOperation _clientScriptOperationMock;
