@@ -34,7 +34,7 @@ import java.util.Map;
  * }</pre>
  */
 @PublicComponent(name = "DropYoutubeVideoExecutable",
-		displayName = "Executable: Youtube Drop Video",
+		displayName = "Youtube Drop Video Executable",
 		description = "Executable that can be used in FS_BUTTONS as onDrop action.")
 public class YoutubeVideoDropExecutable implements Executable {
 

@@ -33,7 +33,7 @@ import java.util.Collections;
  */
 
 @PublicComponent(name = "YoutubeVideoDataAccessPlugin",
-		displayName = "Data Access Plugin: Youtube Video",
+		displayName = "Youtube Video Data Access Plugin",
 		description = "Youtube Video Data Access Plugin")
 public class YoutubeVideoDataAccessPlugin implements DataAccessPlugin<YoutubeVideo> {
 
