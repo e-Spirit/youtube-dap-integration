@@ -20,12 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Youtube base class supports core features, such as searching and retrieving videos.
@@ -49,119 +46,6 @@ public class YoutubeConnector {
 		_youtube = youtube;
 		_channels = channels;
 		_apiKey = apiKey;
-	}
-
-	/**
-	 * Static factory method to create a new Youtube Connector instance.
-	 *
-	 * @param youtubeIntegrationConfig with all parameters to establish a connection to YouTube.
-	 * @return youtube connector
-	 */
-	@Nullable
-	public static YoutubeConnector createInstance(YoutubeIntegrationConfig youtubeIntegrationConfig) {
-		Logging.logDebug("Create new Instance", LOGGER);
-		if (Strings.notEmpty(youtubeIntegrationConfig.getApiKey())) {
-			YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
-			}).setApplicationName(APP_NAME).build();
-
-			List<Channel> channels = new ArrayList<>();
-			if (!youtubeIntegrationConfig.getChannelIds().isEmpty()) {
-				try {
-					channels = getYoutubeChannels(youtube, youtubeIntegrationConfig.getApiKey(), youtubeIntegrationConfig.getChannelIds());
-				} catch (IOException e) {
-					Logging.logError("Error while creating instance of Youtube Connector: ", e, LOGGER);
-				}
-			}
-			return new YoutubeConnector(youtube, channels, youtubeIntegrationConfig.getApiKey());
-		}
-		return null;
-	}
-
-	/**
-	 * Static factory method to create a new Youtube Connector instance. Any configured channels are ignored.
-	 *
-	 * @param youtubeIntegrationConfig with all parameters to establish a connection to YouTube.
-	 * @return youtube connector
-	 */
-	@Nullable
-	public static YoutubeConnector createChannellessInstance(YoutubeIntegrationConfig youtubeIntegrationConfig) {
-		Logging.logDebug("Create new channelless instance.", LOGGER);
-		if (Strings.notEmpty(youtubeIntegrationConfig.getApiKey())) {
-			YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
-			}).setApplicationName(APP_NAME).build();
-			return new YoutubeConnector(youtube, Collections.emptyList(), youtubeIntegrationConfig.getApiKey());
-		}
-		return null;
-	}
-
-	/**
-	 * Helper method to verify the specified api key and channel ids.
-	 *
-	 * @param apiKey     youtube api key.
-	 * @param channelIds youtube channel ids.
-	 * @return list
-	 * @throws IOException the io exception
-	 */
-	public static List<Channel> checkSettings(String apiKey, @Nullable String channelIds) throws IOException {
-		YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
-		}).setApplicationName(APP_NAME).build();
-		List<Channel> result = new ArrayList<>();
-		youtube.i18nLanguages()
-				.list("snippet")
-				.setKey(apiKey)
-				.setFields("etag")
-				.execute();
-		if (channelIds != null && !channelIds.isEmpty()) {
-			result = getYoutubeChannels(youtube, apiKey, channelIds);
-		}
-		return result;
-	}
-
-	/**
-	 * Returns a list of Youtube channels based on the given IDs.
-	 *
-	 * @param youtube
-	 * @param apiKey
-	 * @param channelIds
-	 * @return a list of channels
-	 * @throws IOException
-	 */
-	private static List<Channel> getYoutubeChannels(@NotNull final YouTube youtube, @NotNull final String apiKey, @NotNull final String channelIds) throws IOException {
-		List<String> channelIdList = Arrays.stream(channelIds.split(",")).map(String::trim).collect(Collectors.toList());
-		return getYoutubeChannels(youtube, apiKey, channelIdList);
-	}
-
-	/**
-	 * Returns a list of Youtube channels based on the given IDs.
-	 *
-	 * @param youtube
-	 * @param apiKey
-	 * @param channelIds
-	 * @return a list of channels
-	 * @throws IOException
-	 */
-	private static List<Channel> getYoutubeChannels(@NotNull final YouTube youtube, @NotNull final String apiKey, @NotNull final List<String> channelIds) throws IOException {
-		List<Channel> result = new ArrayList<>();
-		for (final String channelId : channelIds) {
-			ChannelListResponse channels = youtube.channels()
-					.list("snippet")
-					.setKey(apiKey)
-					.setFields("items(id,snippet(title,description))")
-					.setId(channelId)
-					.execute();
-			List<Channel> responseChannelList = channels.getItems();
-			if (responseChannelList.size() == 1) {
-				Channel channel = responseChannelList.get(0);
-				if (!channelId.equals(channel.getId())) {
-					throw new IllegalArgumentException("Incomplete ChannelId, try: " + channel.getId());
-				} else {
-					result.add(channel);
-				}
-			} else {
-				throw new IllegalArgumentException("Unknown ChannelId");
-			}
-		}
-		return result;
 	}
 
 	/**
@@ -205,7 +89,7 @@ public class YoutubeConnector {
 	 * Provides a list of videos for the specified IDs.
 	 *
 	 * @param videoIds list of video ids
-	 * @return a list of youtube videos or a empty list
+	 * @return a list of youtube videos or an empty list
 	 */
 	public List<YoutubeVideo> getVideo(Collection<String> videoIds) {
 		List<YoutubeVideo> videos = new ArrayList<>();
@@ -250,4 +134,123 @@ public class YoutubeConnector {
 		return Optional.empty();
 	}
 
+	/**
+	 * Builder to create a new YouTubeConnector instance.
+	 */
+	public static class Builder {
+
+		private String _apiKey;
+		private List<String> _channelIds;
+
+		/**
+		 * Set the apikey and channelids based on the YoutubeIntegrationConfig
+		 *
+		 * @param youtubeIntegrationConfig the youtube integration config
+		 * @return Builder builder
+		 */
+		public Builder config(YoutubeIntegrationConfig youtubeIntegrationConfig) {
+			_apiKey = youtubeIntegrationConfig.getApiKey();
+			_channelIds = youtubeIntegrationConfig.getChannelIds();
+			return this;
+		}
+
+		/**
+		 * Apikey builder.
+		 *
+		 * @param apiKey the api key
+		 * @return the builder
+		 */
+		public Builder apikey(String apiKey) {
+			_apiKey = apiKey;
+			return this;
+		}
+
+		/**
+		 * Channels builder.
+		 *
+		 * @param channelIds the channel ids
+		 * @return the builder
+		 */
+		public Builder channels(List<String> channelIds) {
+			_channelIds = channelIds;
+			return this;
+		}
+
+		/**
+		 * Build youtube connector.
+		 *
+		 * @return the youtube connector
+		 */
+		public YoutubeConnector build() {
+			if (Strings.notEmpty(_apiKey)) {
+				YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
+				}).setApplicationName(APP_NAME).build();
+				List<Channel> youtubeChannels = new ArrayList<>();
+				if (_channelIds != null && !_channelIds.isEmpty()) {
+					try {
+						youtubeChannels = getYoutubeChannels(youtube);
+					} catch (IOException e) {
+						Logging.logError("Youtube channel retrieval error", e, LOGGER);
+					}
+				}
+				return new YoutubeConnector(youtube, youtubeChannels, _apiKey);
+			}
+			return null;
+		}
+
+		/**
+		 * Helper method to verify the specified api key and channel ids.
+		 *
+		 * @throws IOException the io exception
+		 */
+		public void checkSettings() throws IOException {
+			if (Strings.isEmpty(_apiKey)) {
+				throw new IllegalArgumentException("YoutTube API KEY is missing");
+			}
+			YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
+			}).setApplicationName(APP_NAME).build();
+			youtube.i18nLanguages()
+					.list("snippet")
+					.setKey(_apiKey)
+					.setFields("etag")
+					.execute();
+			if (_channelIds == null || _channelIds.isEmpty()) {
+				Logging.logInfo("No channels configured", LOGGER);
+			} else {
+				getYoutubeChannels(youtube);
+			}
+		}
+
+		/**
+		 * Gets YouTube channels.
+		 *
+		 * @param youtube the youtube
+		 * @return the youtube channels
+		 * @throws IOException the io exception
+		 */
+		List<Channel> getYoutubeChannels(@NotNull final YouTube youtube) throws IOException {
+			List<Channel> result = new ArrayList<>();
+			for (final String channelId : _channelIds) {
+				ChannelListResponse channels = youtube.channels()
+						.list("snippet")
+						.setKey(_apiKey)
+						.setFields("items(id,snippet(title,description))")
+						.setId(channelId)
+						.execute();
+				List<Channel> responseChannelList = channels.getItems();
+				if (responseChannelList.size() == 1) {
+					Channel channel = responseChannelList.get(0);
+					if (!channelId.equals(channel.getId())) {
+						throw new IllegalArgumentException("Incomplete ChannelId, try: " + channel.getId());
+					} else {
+						result.add(channel);
+					}
+				} else {
+					throw new IllegalArgumentException("Unknown ChannelId");
+				}
+			}
+			return result;
+		}
+
+	}
 }

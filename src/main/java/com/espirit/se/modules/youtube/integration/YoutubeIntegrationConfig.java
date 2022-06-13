@@ -1,16 +1,14 @@
 package com.espirit.se.modules.youtube.integration;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Class to outsource configurations
  */
 public class YoutubeIntegrationConfig {
 
-	private String _apiKey;
-	private List<String> _channelIds;
+	private final String _apiKey;
+	private final List<String> _channelIds;
 
 	/**
 	 * Initialize Configuration
