@@ -13,7 +13,7 @@ import java.util.List;
  * Plug-in providing resource urls to be loaded in webedit.
  */
 @PublicComponent(name = "YoutubeVideoClientResourcePlugin",
-		displayName = "Client Resource Plugin: Youtube Video",
+		displayName = "Youtube Video Client Resource Plugin",
 		description = "Provides the required css and javascript files.")
 public class YoutubeIntegrationClientResourcePlugin implements ClientResourcePlugin {
 

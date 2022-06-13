@@ -34,7 +34,7 @@ public interface YoutubeVideoSearchRequest {
 	 *
 	 * @return the total
 	 */
-	public abstract int getTotal();
+	int getTotal();
 
 	/**
 	 * Search videos.
@@ -43,12 +43,12 @@ public interface YoutubeVideoSearchRequest {
 	 * @return the videos
 	 * @throws IOException the io exception
 	 */
-	public abstract List<YoutubeVideo> searchVideos(final int count);
+	List<YoutubeVideo> searchVideos(final int count);
 
 	/**
 	 * Has next.
 	 *
 	 * @return the boolean
 	 */
-	public abstract boolean hasNext();
+	boolean hasNext();
 }

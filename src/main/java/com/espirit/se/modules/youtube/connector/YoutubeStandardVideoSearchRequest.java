@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class YoutubeStandardVideoSearchRequest implements YoutubeVideoSearchRequest {
 
 	private static final Class<?> LOGGER = YoutubeStandardVideoSearchRequest.class;
-	private YouTube.Search.List _youtubeRequestList;
+	private final YouTube.Search.List _youtubeRequestList;
 	private String _youtubePageToken = null;
 	private int _total = -1;
 	private boolean _hasNext = true;

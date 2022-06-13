@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 public class YoutubeMultiChannelVideoSearchRequest implements YoutubeVideoSearchRequest {
 
 	private static final Class<?> LOGGER = YoutubeMultiChannelVideoSearchRequest.class;
-	private YouTube.Search.List _youtubeRequestList;
-	private List<RequestChannel> _channels;
+	private final YouTube.Search.List _youtubeRequestList;
+	private final List<RequestChannel> _channels;
 	private int _total = -1;
 	private boolean _hasNext = true;
 
