@@ -15,12 +15,12 @@ import static org.mockito.Mockito.when;
 
 public class YoutubeVideoExecutableReportItemTest {
 
-	static ReportContext _reportContextMock;
+	static ReportContext<YoutubeVideo> _reportContextMock;
 	static ClientScriptOperation _clientScriptOperationMock;
 
 	@BeforeAll
 	static void beforeAll() {
-		_reportContextMock = mock(ReportContext.class);
+		_reportContextMock = mock(ReportContextYoutubeVideo.class);
 		when(_reportContextMock.is(BaseContext.Env.WEBEDIT)).thenReturn(true);
 
 		OperationAgent operationAgentMock = mock(OperationAgent.class);
@@ -62,6 +62,10 @@ public class YoutubeVideoExecutableReportItemTest {
 		youtubeVideoPreviewItem.execute(_reportContextMock);
 
 		verify(_clientScriptOperationMock).perform("openYoutubePreview('title\\'apostrophe', 'id')", false);
+	}
+
+	//private interface just created to avoid unchecked type operations compiler warnings
+	private interface ReportContextYoutubeVideo extends ReportContext<YoutubeVideo> {
 	}
 
 }
