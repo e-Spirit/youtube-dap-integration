@@ -60,7 +60,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
->>>>>>> master
 }
 
 /*
@@ -125,11 +124,8 @@ afterEvaluate {
         }
     }
 }
-<<<<<<< HEAD
-=======
 
 tasks.withType(JavaCompile) {
     options.compilerArgs += ['-Xlint:deprecation']
     options.compilerArgs += ['-Xlint:unchecked']
 }
->>>>>>> master
