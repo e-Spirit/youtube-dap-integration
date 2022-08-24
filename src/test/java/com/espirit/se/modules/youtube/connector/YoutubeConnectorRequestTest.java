@@ -30,6 +30,7 @@ class YoutubeConnectorRequestTest {
 	@BeforeAll
 	static void beforeAll() throws IOException {
 		_youTubeMock = mock(YouTube.class);
+		// For search requests
 		YouTube.Search searchMock = mock(YouTube.Search.class);
 		when(_youTubeMock.search()).thenReturn(searchMock);
 		YouTube.Search.List searchListMock = mock(YouTube.Search.List.class);
@@ -38,6 +39,15 @@ class YoutubeConnectorRequestTest {
 		when(searchListMock.setKey(anyString())).thenReturn(searchListMock);
 		when(searchListMock.setType(anyString())).thenReturn(searchListMock);
 		when(searchListMock.setFields(anyString())).thenReturn(searchListMock);
+
+		// For list requests
+		YouTube.PlaylistItems playlistItemsMock = mock(YouTube.PlaylistItems.class);
+		when(_youTubeMock.playlistItems()).thenReturn(playlistItemsMock);
+		YouTube.PlaylistItems.List playlistItemsListMock = mock(YouTube.PlaylistItems.List.class);
+		when(playlistItemsMock.list(any())).thenReturn(playlistItemsListMock);
+
+		when(playlistItemsListMock.setKey(anyString())).thenReturn(playlistItemsListMock);
+		when(playlistItemsListMock.setFields(anyString())).thenReturn(playlistItemsListMock);
 	}
 
 	@Test
@@ -133,6 +143,34 @@ class YoutubeConnectorRequestTest {
 
 		assertNotNull(searchRequest);
 		assertTrue(searchRequest instanceof YoutubeMultiChannelVideoSearchRequest);
+	}
+
+	@Test
+	void getSearchRequest_ONE_CHANNEL_NO_QUERY_TERM() {
+		Channel channelMock = mock(Channel.class);
+		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
+		when(channelMock.getSnippet()).thenReturn(channelSnippetMock);
+		when(channelSnippetMock.getTitle()).thenReturn("Channel Title");
+
+		YoutubeConnector youtubeConnector = new YoutubeConnector(_youTubeMock, Arrays.asList(channelMock, channelMock), APIKEY);
+		YoutubeVideoSearchRequest searchRequest = youtubeConnector.getSearchRequest("", "");
+
+		assertNotNull(searchRequest);
+		assertTrue(searchRequest instanceof YoutubeChannelVideosRequest);
+	}
+
+	@Test
+	void getSearchRequest_MULTIPLE_CHANNEL_NO_QUERY_TERM() {
+		Channel channelMock = mock(Channel.class);
+		ChannelSnippet channelSnippetMock = mock(ChannelSnippet.class);
+		when(channelMock.getSnippet()).thenReturn(channelSnippetMock);
+		when(channelSnippetMock.getTitle()).thenReturn("Channel Title");
+
+		YoutubeConnector youtubeConnector = new YoutubeConnector(_youTubeMock, Arrays.asList(channelMock, channelMock), APIKEY);
+		YoutubeVideoSearchRequest searchRequest = youtubeConnector.getSearchRequest("", "all");
+
+		assertNotNull(searchRequest);
+		assertTrue(searchRequest instanceof YoutubeChannelVideosRequest);
 	}
 
 }

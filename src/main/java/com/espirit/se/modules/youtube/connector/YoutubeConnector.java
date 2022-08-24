@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,22 +62,19 @@ public class YoutubeConnector {
 			if (_channels.isEmpty()) {
 				// no channel configured
 				request = YoutubeStandardVideoSearchRequest.createInstance(_apiKey, _youtube, query, null);
-			} else if (_channels.size() == 1) {
-				// one channel configured
-				request = YoutubeStandardVideoSearchRequest.createInstance(_apiKey, _youtube, query, _channels.get(0));
-			} else if (Strings.isEmpty(channel) || "all".equals(channel)) {
-				// more than one channel configured but none or all channels selected
-				request = YoutubeMultiChannelVideoSearchRequest.createInstance(_apiKey, _youtube, query, _channels);
 			} else {
-				// more than one channel configured and one channel selected
-				Optional<Channel> queryChannel = getQueryChannel(channel);
-				if (queryChannel.isPresent()) {
-					// selected channel found in configured channel
-					request = YoutubeStandardVideoSearchRequest.createInstance(_apiKey, _youtube, query, queryChannel.get());
+				List<Channel> queryChannels = getQueryChannel(channel);
+				if (Strings.isEmpty(query)) {
+					// No request term
+					request = YoutubeChannelVideosRequest.createInstance(_apiKey, _youtube, queryChannels);
 				} else {
-					// no matching channel found
-					// Fallback: search without channel
-					request = YoutubeStandardVideoSearchRequest.createInstance(_apiKey, _youtube, query, null);
+					if (queryChannels.isEmpty()) {
+						request = YoutubeStandardVideoSearchRequest.createInstance(_apiKey, _youtube, query, null);
+					} else if (queryChannels.size() == 1) {
+						request = YoutubeStandardVideoSearchRequest.createInstance(_apiKey, _youtube, query, queryChannels.get(0));
+					} else {
+						request = YoutubeMultiChannelVideoSearchRequest.createInstance(_apiKey, _youtube, query, _channels);
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -125,13 +123,16 @@ public class YoutubeConnector {
 		return _channels;
 	}
 
-	private Optional<Channel> getQueryChannel(final String channelId) {
-		for (final Channel channel : _channels) {
-			if (channel.getId().equals(channelId)) {
-				return Optional.of(channel);
+	private List<Channel> getQueryChannel(final String channelId) {
+		if (Strings.notEmpty(channelId) && !"all".equals(channelId) && _channels.size() > 1){
+			for (final Channel channel : _channels) {
+				if (channel.getId().equals(channelId)) {
+					return Collections.singletonList(channel);
+				}
 			}
+			return Collections.emptyList();
 		}
-		return Optional.empty();
+		return _channels;
 	}
 
 	/**
@@ -232,9 +233,8 @@ public class YoutubeConnector {
 			List<Channel> result = new ArrayList<>();
 			for (final String channelId : _channelIds) {
 				ChannelListResponse channels = youtube.channels()
-						.list("snippet")
+						.list("snippet,contentDetails")
 						.setKey(_apiKey)
-						.setFields("items(id,snippet(title,description))")
 						.setId(channelId)
 						.execute();
 				List<Channel> responseChannelList = channels.getItems();
