@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Youtube base class supports core features, such as searching and retrieving videos.
@@ -124,7 +123,7 @@ public class YoutubeConnector {
 	}
 
 	private List<Channel> getQueryChannel(final String channelId) {
-		if (Strings.notEmpty(channelId) && !"all".equals(channelId) && _channels.size() > 1){
+		if (Strings.notEmpty(channelId) && !"all".equals(channelId) && _channels.size() > 1) {
 			for (final Channel channel : _channels) {
 				if (channel.getId().equals(channelId)) {
 					return Collections.singletonList(channel);

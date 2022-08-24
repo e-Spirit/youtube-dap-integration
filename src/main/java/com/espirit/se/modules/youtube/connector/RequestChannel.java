@@ -3,6 +3,7 @@ package com.espirit.se.modules.youtube.connector;
 import com.google.api.services.youtube.model.Channel;
 
 public class RequestChannel {
+
 	private final Channel _channel;
 	private String _pageToken = null;
 	private int _totalVideos = 0;
@@ -79,7 +80,7 @@ public class RequestChannel {
 	 */
 	public void setConsumedVideos(final int consumedVideos) {
 		_consumedVideos = consumedVideos;
-		if (_consumedVideos >= _totalVideos){
+		if (_consumedVideos >= _totalVideos) {
 			_consumed = true;
 		}
 	}

@@ -1,7 +1,5 @@
 package com.espirit.se.modules.youtube.connector;
 
-import de.espirit.common.base.Logging;
-
 import com.espirit.se.modules.youtube.YoutubeVideo;
 import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemSnippet;

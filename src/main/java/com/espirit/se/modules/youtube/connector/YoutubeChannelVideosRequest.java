@@ -8,8 +8,6 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
-import com.google.api.services.youtube.model.SearchListResponse;
-import com.google.api.services.youtube.model.SearchResult;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,12 +16,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class YoutubeChannelVideosRequest implements YoutubeVideoSearchRequest{
+public class YoutubeChannelVideosRequest implements YoutubeVideoSearchRequest {
 
 	private static final Class<?> LOGGER = YoutubeChannelVideosRequest.class;
+	private final YouTube.PlaylistItems.List _playList;
 	private int _total = -1;
 	private boolean _hasNext = true;
-	private final YouTube.PlaylistItems.List _playList;
 	private List<RequestChannel> _channels;
 
 	/**
@@ -38,8 +36,8 @@ public class YoutubeChannelVideosRequest implements YoutubeVideoSearchRequest{
 	/**
 	 * Create instance youtube list video request.
 	 *
-	 * @param apiKey  the api key
-	 * @param youtube the youtube
+	 * @param apiKey   the api key
+	 * @param youtube  the youtube
 	 * @param channels list of channels
 	 * @return the youtube standard video search request
 	 * @throws IOException the io exception
