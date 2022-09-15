@@ -1,6 +1,8 @@
 package com.espirit.se.modules.youtube.connector;
 
 import com.espirit.se.modules.youtube.YoutubeVideo;
+import com.google.api.services.youtube.model.PlaylistItem;
+import com.google.api.services.youtube.model.PlaylistItemSnippet;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
 import com.google.api.services.youtube.model.ThumbnailDetails;
@@ -27,6 +29,22 @@ public interface YoutubeVideoSearchRequest {
 								searchResultSnippet.getDescription(),
 								searchResultThumbnails.getDefault().getUrl(),
 								searchResultThumbnails.getHigh().getUrl());
+	}
+
+	/**
+	 * Create youtube video object.
+	 *
+	 * @param playlistItem the video list result
+	 * @return the youtube video
+	 */
+	static YoutubeVideo createYoutubeVideo(final PlaylistItem playlistItem) {
+		PlaylistItemSnippet snippet = playlistItem.getSnippet();
+		ThumbnailDetails thumbnails = snippet.getThumbnails();
+		return new YoutubeVideo(playlistItem.getContentDetails().getVideoId(),
+								snippet.getTitle(),
+								snippet.getDescription(),
+								thumbnails.getDefault().getUrl(),
+								thumbnails.getHigh().getUrl());
 	}
 
 	/**
