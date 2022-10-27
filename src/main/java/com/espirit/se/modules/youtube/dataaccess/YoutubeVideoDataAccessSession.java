@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
 /**
  * Basic class to provide a Data Access Session to support the Data Access Plugin.
  * Please see FirstSpirit API for more information.

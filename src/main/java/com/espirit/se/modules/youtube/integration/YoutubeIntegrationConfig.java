@@ -22,7 +22,6 @@ public class YoutubeIntegrationConfig {
 	}
 
 	/**
-	 *
 	 * @return Google API key
 	 */
 	public String getApiKey() {
@@ -30,7 +29,6 @@ public class YoutubeIntegrationConfig {
 	}
 
 	/**
-	 *
 	 * @return list of YouTube channel ids
 	 */
 	public List<String> getChannelIds() {
