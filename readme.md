@@ -154,14 +154,14 @@ The params `id`, `title` and `description` are each optional. The value must be 
 * Drag and drop on the global search bar to force a search for usages of this video
 
 ## Legal Notices
-The YouTube-DAP-Integration is a reference of [e-Spirit GmbH](http://www.e-spirit.com/), Dortmund, Germany.
+The YouTube-DAP-Integration is a product of Crownpeak Technology GmbH, Dortmund, Germany.
 The YouTube-DAP-Integration is subject to the Apache-2.0 license.
 
 ## Disclaimer
-This document is provided for information purposes only. e-Spirit may change the contents 
+This document is provided for information purposes only. Crownpeak may change the contents 
 hereof without notice. This document is not warranted to be error-free, nor subject to any 
 other warranties or conditions, whether expressed orally or implied in law, including implied 
-warranties and conditions of merchantability or fitness for a particular purpose. e-Spirit 
+warranties and conditions of merchantability or fitness for a particular purpose. Crownpeak
 specifically disclaims any liability with respect to this document and no contractual 
 obligations are formed either directly or indirectly by this document. The technologies, 
 functionality, services, and processes described herein are subject to change without notice.
